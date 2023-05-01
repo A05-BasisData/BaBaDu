@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>landing page</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded" style="width: 18rem;">
+        <div class="card-body">
+            <h1 class="card-title font-h">BaBaDu</h1>
+            <p class="card-subtitle mb-2 text-muted font-p">by kelompok A05</p>
+            <button type="button" class="btn btn-primary mt-3">
+                <a href="{% url 'autentikasi:login' %} " class="text-white">Login</a>
+            </button>
+            <button type="button" class="btn btn-outline-primary mt-3">
+                <a href="{% url 'autentikasi:register' %}">Register</a>
+            </button>
+        </div>
+        </div>
+</div>
+
+{% endblock content %}

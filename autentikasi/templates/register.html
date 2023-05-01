@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>register</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded">
+        <div class="card-body">
+            <h1 class="card-title font-h">Choose your role</h1>
+            <div col mx-auto>
+                <button type="button" class="btn btn-primary mt-3">
+                    <a href="{% url 'autentikasi:regist_atlet' %} " class="text-white">Atlet</a>
+                </button>
+                <button type="button" class="btn btn-primary mt-3">
+                    <a href="{% url 'autentikasi:regist_pelatih' %} " class="text-white">Pelatih</a>
+                </button>
+                <button type="button" class="btn btn-primary mt-3">
+                    <a href="{% url 'autentikasi:regist_umpire' %} " class="text-white">Umpire</a>
+                </button>
+            </div>
+        </div>
+        </div>
+</div>
+
+{% endblock content %}
