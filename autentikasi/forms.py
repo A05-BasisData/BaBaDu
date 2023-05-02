@@ -16,7 +16,8 @@ class regist_form_atlet(ModelForm):
     nama = forms.CharField(label="Nama", widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label="Email",widget=forms.EmailInput(attrs={'class': 'form-control text-center font-p', 'placeholder': 'Ex: LoremIpsum@gmail.com'}), max_length=50)
     negara_asal = forms.CharField(label="Negara", widget=forms.TextInput(attrs={'class': 'form-control'}))
-    tgl_lahir = forms.DateField(label="Tanggal Lahir", widget=forms.widgets.DateInput(attrs={'type': 'date', 'class': 'form-control text-center font-p text-muted'})) #harusnya charfield
+    # tgl_lahir = forms.DateField(label="Tanggal Lahir", widget=forms.widgets.DateInput(attrs={'type': 'date', 'class': 'form-control text-center font-p text-muted'})) #harusnya charfield
+    tgl_lahir = forms.CharField(label="Tanggal Lahir", widget=forms.TextInput(attrs={'class': 'form-control'}))
     play_right = forms.TypedChoiceField(
                    coerce=lambda x: x == 'True',
                    choices=((False, 'Left'), (True, 'Right')),

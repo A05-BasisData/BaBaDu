@@ -54,6 +54,8 @@ def regist_umpire(request):
 
 def login(request):
     # skip authentication
+    username = request.POST.get('username')
+    email = request.POST.get('email')
     return render(request, 'login.html')
 
     
