@@ -1,0 +1,39 @@
+{% extends 'basePelatih.html' %}
+{% load static %}
+
+{% block meta %}
+<title>List Atlet</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">List Atlet</h1>
+            <hr>
+            <table class="table">
+                <thead class="font-p">
+                  <tr>
+                    <th scope="col">Nama Atlet</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">World Rank</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Atlet1</td>
+                    <td>atlet1@gmail.com</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td>Atlet2</td>
+                    <td>atlet2@yahoo.com</td>
+                    <td>2</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        </div>
+</div>
+{% endblock content %}

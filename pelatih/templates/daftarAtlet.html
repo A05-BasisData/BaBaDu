@@ -1,0 +1,37 @@
+{% extends 'basePelatih.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Daftar Atlet</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">Daftar Atlet</h1>
+            <hr>
+            <div class="col">
+                <p class="font-p">Atlet yang mau ditambahkan: </p>
+            </div>
+            <div class="col">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle font-p" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 18rem;">
+                    Atlet
+                </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">aaaaa</a>
+                      <a class="dropdown-item" href="#">bbbbb</a>
+                      <a class="dropdown-item" href="#">ccccc</a>
+                    </div>
+                  </div>
+            </div>
+            <button type="button" class="btn btn-outline-primary mt-3">
+                <a href="{% url 'pelatih:list_atlet' %}">Submit</a>
+            </button>
+            
+        </div>
+        </div>
+</div>
+{% endblock content %}
