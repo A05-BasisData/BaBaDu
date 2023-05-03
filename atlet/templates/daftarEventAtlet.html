@@ -1,0 +1,99 @@
+{% extends 'baseAtletKualifikasi.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Pilih Kategori</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">Pilih Kategori</h1>
+            <hr>
+            <div class="col mb-2">
+              <h4 class="font-h">Event A</h4>
+              <hr>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Hadiah </strong> RpXXXXXXX</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Tanggal Mulai </strong> xx/xx/xxxx</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Tanggal Selesai </strong> xx/xx/xxxx</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Kategori </strong> kategori</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Kapasitas </strong> xxxx/xxxxx</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Stadium </strong> stadium</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Negara </strong> negara</p>
+            </div>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Partner</th>
+                    <th scope="col"> </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tunggal Putra</td>
+                    <td>-</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <a href="#" class="text-white">Pilih</a>
+                        </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ganda Putra</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle font-p" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15rem;">
+                                Pasangan
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">aaaaa</a>
+                                <a class="dropdown-item" href="#">bbbbb</a>
+                                <a class="dropdown-item" href="#">ccccc</a>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <a href="#" class="text-white">Pilih</a>
+                        </button>
+                  </tr>
+                    <tr>
+                    <td>Ganda Putra</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle font-p" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15rem;">
+                                Pasangan
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">aaaaa</a>
+                                <a class="dropdown-item" href="#">bbbbb</a>
+                                <a class="dropdown-item" href="#">ccccc</a>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <a href="#" class="text-white">Pilih</a>
+                        </button>
+                    </tr>
+                </tbody>
+              </table>
+        </div>
+        </div>
+</div>
+{% endblock content %}

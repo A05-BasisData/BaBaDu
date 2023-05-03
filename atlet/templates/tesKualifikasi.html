@@ -1,0 +1,52 @@
+{% extends 'baseAtletKualifikasi.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Kualifikasi</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">Form Data Kualifikasi</h1>
+            <hr>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="col mb-2 ">
+                    <input type="text" name="no_batch" placeholder="No batch" class="form-control justify-content-center" id="no_batch">
+                </div>
+                <div class="col mb-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle font-p" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 24rem;">
+                          Tempat Pelaksanaan
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">xx/xx/xxxx</a>
+                          <a class="dropdown-item" href="#">xx/xx/xxxx</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col mb-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle font-p" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 24rem;">
+                          Tempat Pelaksanaan
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">aaaaa</a>
+                          <a class="dropdown-item" href="#">bbbbb</a>
+                          <a class="dropdown-item" href="#">ccccc</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col mt-3">
+                    <button type="button" class="btn btn-outline-primary mt-3">
+                        <a href="{% url 'atlet:pertanyaan_kualifikasi' %}">Next</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+        </div>
+</div>
+{% endblock content %}

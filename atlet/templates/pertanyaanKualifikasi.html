@@ -1,0 +1,63 @@
+{% extends 'baseAtletKualifikasi.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Pertanyaan Kualifikasi</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">Pertanyaan Kualifikasi</h1>
+            <hr>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-check">
+                    <div class="mb-2">
+                        <p class="font-p">1. What is the maximum number of points that can be scored in a single serve?</p>
+                        <label><input type="radio" name="q1" value="a" class="font-p"> 10</label>
+                        <label><input type="radio" name="q1" value="b" class="font-p"> 15</label>
+                        <label><input type="radio" name="q1" value="c" class="font-p"> 20</label>
+                    </div>
+
+                    <div class="mb-2">
+                        <p class="font-p">2. In what year was badminton included in the Olympic Games?</p>
+                        <label><input type="radio" name="q2" value="a" class="font-p"> 1984</label>
+                        <label><input type="radio" name="q2" value="b" class="font-p"> 1992</label>
+                        <label><input type="radio" name="q2" value="c" class="font-p"> 2000</label>
+                    </div>
+                    
+                    <div class="mb-2">
+                        <p class="font-p">3. Which country has won the most Thomas Cup championships?</p>
+                        <label><input type="radio" name="q3" value="a" class="font-p"> Indonesia</label>
+                        <label><input type="radio" name="q3" value="b" class="font-p"> China</label>
+                        <label><input type="radio" name="q3" value="c" class="font-p"> Malaysia</label>
+                    </div>
+                    
+                    <div class="mb-2">
+                        <p class="font-p">4. What is the standard weight of a shuttlecock used in official tournaments?</p>
+                        <label><input type="radio" name="q4" value="a" class="font-p"> 4.5 grams</label>
+                        <label><input type="radio" name="q4" value="b" class="font-p"> 4.7 grams</label>
+                        <label><input type="radio" name="q4" value="c" class="font-p"> 5.0 grams</label>
+                    </div>
+                    
+                    <div class="mb-2">
+                        <p class="font-p">5. Which of the following strokes is NOT a basic badminton stroke?</p>
+                        <label><input type="radio" name="q5" value="a" class="font-p"> Smash</label>
+                        <label><input type="radio" name="q5" value="b" class="font-p"> Drop</label>
+                        <label><input type="radio" name="q5" value="c" class="font-p"> Drive</label>
+                    </div>
+                    
+                </div>
+                <div class="col mt-3">
+                    <button type="button" class="btn btn-outline-primary mt-3">
+                        <a href="{% url 'atlet:dashboard_atlet' %}">Submit</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+        </div>
+</div>
+{% endblock content %}

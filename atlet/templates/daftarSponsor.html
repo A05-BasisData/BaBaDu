@@ -1,0 +1,35 @@
+{% extends 'baseAtletKualifikasi.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Daftar Sponsor</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded " style="width: 24rem;" >
+        <div class="card-body">
+            <h1 class="card-title font-h">Daftar Sponsor</h1>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="col mb-1">
+                    <label class="form-label font-p">Nama Sponsor</label>
+                    {{ form.nama_sponsor }}
+                </div>
+                <div class="col mb-1">
+                    <label class="form-label font-p">Tanggal Mulai</label>
+                    {{ form.tgl_mulai }}
+                </div>
+                <div class="col mb-3">
+                    <label class="form-label font-p">Tanggal Selesai</label>
+                    {{ form.tgl_selesai }}
+                </div>
+                <div class="col mb-1">
+                    <input class="btn btn-primary font-p" type="submit">
+                </div>
+            </form>  
+        </div>
+        </div>
+</div>
+{% endblock content %}

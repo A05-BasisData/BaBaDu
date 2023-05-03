@@ -1,0 +1,56 @@
+{% extends 'baseAtletKualifikasi.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Pilih Event</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">Pilih Kategori</h1>
+            <hr>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nama Event</th>
+                    <th scope="col">Total Hadiah</th>
+                    <th scope="col">Tanggal Mulai</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Kapasitas</th>
+                    <th scope="col"> </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>EventA</td>
+                    <td>Rp5000000</td>
+                    <td>12-04-2023</td>
+                    <td>S200</td>
+                    <td>73682/80000</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <a href="{% url 'atlet:daftar_event' %} " class="text-white">Pilih</a>
+                        </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>EventB</td>
+                    <td>Rp4000000</td>
+                    <td>27-07-2023</td>
+                    <td>S100</td>
+                    <td>26783/80000</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">
+                            <a href="{% url 'atlet:daftar_event' %} " class="text-white">Pilih</a>
+                        </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        </div>
+</div>
+{% endblock content %}

@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+class sponsor(models.Model):
+    nama_sponsor = models.CharField(max_length=50)
+    tgl_mulai = models.DateField()
+    tgl_selesai = models.DateField()
+
