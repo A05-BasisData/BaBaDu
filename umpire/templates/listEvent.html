@@ -1,8 +1,8 @@
-{% extends 'baseAtletKualifikasi.html' %}
+{% extends 'baseUmpire.html' %}
 {% load static %}
 
 {% block meta %}
-<title>Enrolled Event</title> 
+<title>List Event</title> 
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock meta %}
 
@@ -10,7 +10,7 @@
 <div class="container min-vh-100 d-flex align-items-center justify-content-center">
     <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
         <div class="card-body">
-            <h1 class="card-title font-h">Event yang diikuti</h1>
+            <h1 class="card-title font-h">List Event</h1>
             <hr>
             <table class="table">
                 <thead>
@@ -19,7 +19,6 @@
                     <th scope="col">Stadium</th>
                     <th scope="col">Hadiah</th>
                     <th scope="col">Kategori Superseries</th>
-                    <th scope="col">Kategori Spesialisasi</th>
                     <th scope="col">Tanggal Mulai</th>
                     <th scope="col">Tanggal Selesai</th>
                     <th scope="col">Kapasitas</th>
@@ -32,13 +31,12 @@
                     <td>Gelora Bung Karno</td>
                     <td>Rp5000000</td>
                     <td>S200</td>
-                    <td>Tunggal Putra</td>
                     <td>xx/xx/xxxx</td>
                     <td>xx/xx/xxxx</td>
                     <td>xxxx/xxxxx</td>
                     <td>
                         <button type="button" class="btn btn-primary">
-                            <a href="#" class="text-white">Unenrolled</a>
+                            <a href="{% url 'umpire:pertandingan' %}" class="text-white">Mulai</a>
                         </button>
                     </td>
                   </tr>
@@ -47,13 +45,12 @@
                     <td>Gelora Bung Beto</td>
                     <td>Rp1000000</td>
                     <td>S500</td>
-                    <td>Ganda Campuran</td>
                     <td>xx/xx/xxxx</td>
                     <td>xx/xx/xxxx</td>
                     <td>xxxx/xxxxx</td>
                     <td>
                         <button type="button" class="btn btn-primary">
-                            <a href="#" class="text-white">Unenrolled</a>
+                            <a href="{% url 'umpire:pertandingan' %}" class="text-white">Mulai</a>
                         </button>
                     </td>
                   </tr>

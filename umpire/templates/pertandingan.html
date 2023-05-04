@@ -1,0 +1,151 @@
+{% extends 'baseUmpire.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Pertanyaan</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded" style="width: 80rem;">
+        <div class="card-body">
+            <h1 class="card-title font-h">Babak Pertandingan</h1>
+            <div class="card-subtitle mb-2 text-muted font-p">
+                <label id="minutes" class="font-p">00</label>
+                <label id="colon" class="font-p">:</label>
+                <label id="seconds" class="font-p">00</label>
+                    <script type="text/javascript">
+                        var minutesLabel = document.getElementById("minutes");
+                        var secondsLabel = document.getElementById("seconds");
+                        var totalSeconds = 0;
+                        setInterval(setTime, 1000);
+
+                        function setTime()
+                        {
+                            ++totalSeconds;
+                            secondsLabel.innerHTML = pad(totalSeconds%60);
+                            minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+                        }
+
+                        function pad(val)
+                        {
+                            var valString = val + "";
+                            if(valString.length < 2)
+                            {
+                                return "0" + valString;
+                            }
+                            else
+                            {
+                                return valString;
+                            }
+                        }
+                    </script>
+            </div>
+            <hr>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="col-2">Tim 1</th>
+                    <th scope="col" class="col-2">Tim 2</th>
+                    <th scope="col" class="col-4">Skor Tim 1</th>
+                    <th scope="col" class="col-4">Skot Tim 2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>A</td>
+                    <td>B</td>
+                    <td>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-primary btn-sm" style="width: 5rem;">
+                                    <a href="#" class="text-white">+</a>
+                                </button>
+                            </div>
+                            <div class="col-3 align-items-center">
+                                <p class="font-p">1</p>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-primary btn-sm" style="width: 5rem;">
+                                    <a href="#" class="text-white">-</a>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-primary btn-sm" style="width: 5rem;">
+                                    <a href="#" class="text-white">+</a>
+                                </button>
+                            </div>
+                            <div class="col-3 align-items-center">
+                                <p class="font-p">1</p>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-primary btn-sm" style="width: 5rem;">
+                                    <a href="#" class="text-white">-</a>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>C</td>
+                    <td>D</td>
+                    <td>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-primary btn-sm" style="width: 5rem;">
+                                    <a href="#" class="text-white">+</a>
+                                </button>
+                            </div>
+                            <div class="col-3 align-items-center">
+                                <p class="font-p">10</p>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-primary btn-sm" style="width: 5rem;">
+                                    <a href="#" class="text-white">-</a>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-primary btn-sm" style="width: 5rem;">
+                                    <a href="#" class="text-white">+</a>
+                                </button>
+                            </div>
+                            <div class="col-3 align-items-center">
+                                <p class="font-p">13</p>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-primary btn-sm" style="width: 5rem;">
+                                    <a href="#" class="text-white">-</a>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button type="button" class="btn btn-primary">
+                <a href="{% url 'umpire:hasil_pertandingan' %}" class="text-white">Done</a>
+              </button>
+        </div>
+        </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    var sec = 0;
+    function pad ( val ) { return val > 9 ? val : "0" + val; }
+    setInterval( function(){
+        $("#seconds").html(pad(++sec%60));
+        $("#minutes").html(pad(parseInt(sec/60,10)));
+    }, 1000);
+</script>
+{% endblock scripts %}

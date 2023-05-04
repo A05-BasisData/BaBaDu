@@ -24,16 +24,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active font-h" aria-current="page" href="#">Dashboard</a>
+              <a class="nav-link active font-h" aria-current="page" href="{% url 'umpire:dashboard_umpire' %}">Dashboard</a>
             </li>
             <li class="nav-item">
               <a class="nav-link font-h" href="#">Daftar Atlet</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link font-h" href="#">Lihat Event</a>
+              <a class="nav-link font-h" href="{% url 'umpire:lihat_event' %}">Lihat Event</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link font-h" href="#">Hasil Pertandingan</a>
+              <a class="nav-link font-h" href="{% url 'umpire:hasil_pertandingan' %}">Hasil Pertandingan</a>
             </li>
           </ul>
           <button type="button" class="btn btn-primary">

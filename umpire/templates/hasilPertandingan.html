@@ -1,0 +1,86 @@
+{% extends 'baseUmpire.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Hasil Pertandingan</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center mt-4">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">Hasil Pertandingan</h1>
+            <hr>
+            <div class="col mb-2">
+              <h4 class="font-h">Event A</h4>
+              <hr>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Nama Event </strong> nama event</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Stadium </strong> stadium</p>
+            </div> 
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Hadiah </strong> RpXXXXXXX</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Kategori Superseries </strong> kategori superseries</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Tanggal Mulai </strong> xx/xx/xxxx</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Tanggal Selesai </strong> xx/xx/xxxx</p>
+            </div>
+            <div class="col mb-2">
+                <p class="font-p"><strong class="font-p">Kapasitas </strong> xxxx/xxxxx</p>
+            </div>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Juara</th>
+                    <th scope="col">Nama Tim</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Juara 1</td>
+                    <td>A</td>
+                  </tr>
+                  <tr>
+                    <td>Juara 2</td>
+                    <td>G</td>
+                  </tr>
+                  <tr>
+                    <td>Juara 3</td>
+                    <td>D</td>
+                  </tr>
+                  <tr>
+                    <td>Semifinal</td>
+                    <td>E</td>
+                  </tr>
+                  <tr>
+                    <td>Semifinal</td>
+                    <td>
+                        <div class="row">
+                            <p>C</p>
+                        </div>
+                        <div class="row">
+                            <p>F</p>
+                        </div>
+                        <div class="row">
+                            <p>B</p>
+                        </div>
+                        <div class="row">
+                            <p>H</p>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        </div>
+</div>
+{% endblock content %}
