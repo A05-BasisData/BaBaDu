@@ -11,3 +11,10 @@ Anggota Kelompok:
 ### NOTES
 
 Models dan forms dipakai buat nampilin dummy data pada frontend.
+
+### LINKS
+
+* Login/register:
+* Atlet:
+* Pelatih:
+* Umpire:
