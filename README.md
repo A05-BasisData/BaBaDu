@@ -14,7 +14,7 @@ Models dan forms dipakai buat nampilin dummy data pada frontend.
 
 ### LINKS
 
-* Login/register:
-* Atlet:
-* Pelatih:
-* Umpire:
+* Login/register: https://babadua05.up.railway.app/
+* Atlet: https://babadua05.up.railway.app/atlet
+* Pelatih: https://babadua05.up.railway.app/atlet
+* Umpire: https://babadua05.up.railway.app/umpire
