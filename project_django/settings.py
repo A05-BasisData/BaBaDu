@@ -83,9 +83,16 @@ WSGI_APPLICATION = 'project_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'KelompokA05Basdut',
+        'HOST': 'db.hyowwnuxbttgwulfqabf.supabase.co',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=babadu,public'
+        }
+    },
 }
 
 if PRODUCTION:
