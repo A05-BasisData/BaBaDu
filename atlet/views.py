@@ -17,8 +17,12 @@ def pilih_stadium(request):
     cnt = query(f'''
         select count(*) from stadium;
     ''')
-    print("ini cntttt")
+    print("jumlah stadium")
     print(cnt[0].count)
+
+    cnt = query(f'''
+        select * from stadium;
+    ''')
     return render (request, 'pilihStadium.html')
 
 def daftar_event(request):
