@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
 from atlet.forms import *
+from utility.query import query
 
 def dashboard_atlet(request):
     return render (request, 'dashboardAtlet.html')
@@ -13,6 +14,11 @@ def pertanyaan_kualifikasi(request):
     return render (request, 'pertanyaanKualifikasi.html')
 
 def pilih_stadium(request):
+    cnt = query(f'''
+        select count(*) from stadium;
+    ''')
+    print("ini cntttt")
+    print(cnt[0].count)
     return render (request, 'pilihStadium.html')
 
 def daftar_event(request):
