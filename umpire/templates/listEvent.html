@@ -16,8 +16,9 @@
                 <thead>
                   <tr>
                     <th scope="col">Nama Event</th>
+                    <th scope="col">Tahun</th>
                     <th scope="col">Stadium</th>
-                    <th scope="col">Hadiah</th>
+                    <th scope="col">Jenis Partai</th>
                     <th scope="col">Kategori Superseries</th>
                     <th scope="col">Tanggal Mulai</th>
                     <th scope="col">Tanggal Selesai</th>
@@ -26,33 +27,22 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for prtdg in data.event %}
                   <tr>
-                    <td>Djarum Youth Tournament</td>
-                    <td>Istora Senayan</td>
-                    <td>Rp5000000</td>
-                    <td>S200</td>
-                    <td>12/04/2023</td>
-                    <td>22/04/2023</td>
-                    <td>20/20</td>
+                    <td>{{ prtdg.nama_event }}</td>
+                    <td>{{ prtdg.tahun }}</td>
+                    <td>{{ prtdg.nama_stadium }}</td>
+                    <td>{{ prtdg.jenis_partai }}</td>
+                    <td>{{ prtdg.kategori_superseries }}</td>
+                    <td>{{ prtdg.tgl_mulai }}</td>
+                    <td>{{ prtdg.tgl_selesai }}</td>
+                    <td>{{ prtdg.kapasitas }}</td>
                     <td>
                         <button type="button" class="btn btn-primary">
-                            <a href="{% url 'umpire:pertandingan' %}" class="text-white">Mulai</a>
+                            <a onclick="location.href='/umpire/pertandingan/{{prtdg.nama_event}}/'"class="text-white">Mulai</a>
                         </button>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>Turnamen Bangun Karya</td>
-                    <td>Istora Bung Beto</td>
-                    <td>Rp4000000</td>
-                    <td>S100</td>
-                    <td>27/07/2023</td>
-                    <td>08/08/2023</td>
-                    <td>20/20</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">
-                            <a href="{% url 'umpire:pertandingan' %}" class="text-white">Mulai</a>
-                        </button>
-                    </td>
+                    {% endfor %}
                   </tr>
                 </tbody>
               </table>

@@ -1,0 +1,22 @@
+{% extends 'baseAtletKualifikasi.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Pilih Stadium</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">Daftar Event</h1>
+            <hr>
+            <p class="font-p">Tidak ada event</p>
+            <button type="button" class="btn btn-primary">
+                <a onclick="location.href='/atlet/pilih_stadium/'" class="text-white">Kembali</a>
+            </button>
+        </div>
+        </div>
+</div>
+{% endblock content %}

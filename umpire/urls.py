@@ -7,6 +7,6 @@ urlpatterns = [
     path('', dashboard_umpire, name = 'dashboard_umpire'),
     path('dashboard/', dashboard_umpire, name = 'dashboard_umpire'),
     path('list_event/', lihat_event, name = 'lihat_event'),
-    path('pertandingan/', pertandingan, name = 'pertandingan'),
+    path('pertandingan/<str:prtdg>/', pertandingan, name = 'pertandingan'),
     path('hasil_pertandingan/', hasil_pertandingan, name = 'hasil_pertandingan'),
 ]
