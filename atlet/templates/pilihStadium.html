@@ -22,36 +22,18 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for std in data.stadium %}
                   <tr>
-                    <td>Deutsche court</td>
-                    <td>Jerman</td>
-                    <td>20</td>
+                    <td>{{ std.nama }}</td>
+                    <td>{{ std.negara }}</td>
+                    <td>{{ std.kapasitas }}</td>
                     <td>
                         <button type="button" class="btn btn-primary">
-                            <a href="{% url 'atlet:pilih_event' %} " class="text-white">Pilih</a>
+                            <a onclick="location.href='/atlet/pilih_event/{{std.nama}}/'" class="text-white">Pilih</a>
                         </button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>Istora Senayan</td>
-                    <td>Indonesia</td>
-                    <td>20</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">
-                            <a href="{% url 'atlet:pilih_event' %} " class="text-white">Pilih</a>
-                        </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Istora Bung Beto</td>
-                    <td>Indonesia</td>
-                    <td>20</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">
-                            <a href="{% url 'atlet:pilih_event' %} " class="text-white">Pilih</a>
-                        </button>
-                    </td>
-                  </tr>
+                  {% endfor %}
                 </tbody>
               </table>
         </div>
