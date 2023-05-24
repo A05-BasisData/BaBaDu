@@ -26,17 +26,32 @@
             <li class="nav-item">
               <a class="nav-link active font-h" aria-current="page" href="{% url 'atlet:dashboard_atlet' %} ">Dashboard</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'atlet:tes_kualifikasi' %}">Tes Kualifikasi</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle font-p" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Ujian Kualifikasi
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item font-p" href="{% url 'atlet:tes_kualifikasi' %}">List Ujian Kualifikasi</a></li>
+                <li><a class="dropdown-item font-p" href="#">Riwayat Ujian Kualifikasi</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'atlet:pilih_stadium' %}">Daftar Event</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle font-p" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Event
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item font-p" href="{% url 'atlet:pilih_stadium' %}">Daftar Event</a></li>
+                <li><a class="dropdown-item font-p" href="{% url 'atlet:enrolled_event' %}"">Enrolled Event</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'atlet:enrolled_event' %}">Enrolled Event</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'atlet:daftar_sponsor' %}">Daftar Sponsor</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle font-p" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sponsor
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item font-p" href="{% url 'atlet:daftar_sponsor' %}">Daftar Sponsor</a></li>
+                <li><a class="dropdown-item font-p" href="#">List Sponsor</a></li>
+              </ul>
             </li>
           </ul>
           <button type="button" class="btn btn-primary">

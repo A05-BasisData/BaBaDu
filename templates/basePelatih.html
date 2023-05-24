@@ -26,11 +26,14 @@
             <li class="nav-item">
               <a class="nav-link active font-h" aria-current="page" href="{% url 'pelatih:dashboard_pelatih' %} ">Dashboard</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'pelatih:daftar_atlet' %}">Daftar Atlet</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'pelatih:list_atlet' %}">List Atlet</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle font-p" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Latih Atlet
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item font-p" href="{% url 'pelatih:daftar_atlet' %}">Create Latih Atlet</a></li>
+                <li><a class="dropdown-item font-p" href="{% url 'pelatih:list_atlet' %}">List Atlet Dilatih</a></li>
+              </ul>
             </li>
           </ul>
           <button type="button" class="btn btn-primary">
