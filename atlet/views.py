@@ -99,13 +99,13 @@ def daftar_event(request, evname, evthn):
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5'
                             UNION 
                             SELECT atlet_ganda.id_atlet_kualifikasi_2 from atlet_ganda
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5'
                             )
                         AND jenis_kelamin = TRUE;
                     '''
@@ -131,13 +131,13 @@ def daftar_event(request, evname, evthn):
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5'
                             UNION 
                             SELECT atlet_ganda.id_atlet_kualifikasi_2 from atlet_ganda
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5'
                             )
                         AND jenis_kelamin = FALSE;
                     '''
@@ -169,13 +169,13 @@ def daftar_event(request, evname, evthn):
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5'
                             UNION 
                             SELECT atlet_ganda.id_atlet_kualifikasi_2 from atlet_ganda
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
-                            JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'
+                            JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta 
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'AND atlet_ganda.id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5'
                             )
                         AND jenis_kelamin = FALSE;
                     '''
@@ -199,14 +199,14 @@ def daftar_event(request, evname, evthn):
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5'
                             JOIN 
                             UNION 
                             SELECT atlet_ganda.id_atlet_kualifikasi_2 from atlet_ganda
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5'
                             )
                         AND jenis_kelamin = TRUE;
                     '''
@@ -316,12 +316,17 @@ def daftar_event(request, evname, evthn):
                 )
             '''
         ))
-        print(query(
+        trigger_4 = (query(
             f'''INSERT INTO peserta_mendaftar_event VALUES(
                 '{curr_no_psrt}', '{evname}', '{evthn}'
                 )
             '''
         ))
+        print(trigger_4)
+        if isinstance(trigger_4, Exception):
+            trigger_msg = trigger_4.args[0].split("\n")[0]
+            messages.error(request, trigger_msg)
+            return redirect("/atlet/daftar_event")
         return redirect("/atlet/enrolled_event")
 
     return render (request, 'daftarEventAtlet.html', {'data':data})
