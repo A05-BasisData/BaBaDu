@@ -4,7 +4,7 @@ from utility.query import query
 def dashboard_umpire(request):
     return render (request, 'dashboardUmpire.html')
 
-def umpire_daftar_atlet(request):
+def lihat_atlet(request):
     atlet_kualifikasi = {}
     atlet_non_kualifikasi = {}
     
@@ -42,23 +42,13 @@ def umpire_daftar_atlet(request):
 
     atlet_ganda = {'atlet_ganda':list_atlet_ganda}
 
-    # print(atlet_non_kualifikasi)
-    # print(atlet_ganda)
-    # atlet_ganda['atlet_ganda'] = [atlet_ganda._asdict() for atlet_ganda in query(
-    #     f'''SELECT ID_Atlet_Ganda, AK1.Nama, AK2.Nama, SUM(AK1.Total_Point, AK2.Total_Point)
-    #     FROM ATLET_GANDA AG JOIN ATLET_KUALIFIKASI AK1, AK2 ON (AG.ID_Atlet_Kualifikasi = AK1.ID_ATLET OR AG.ID_Atlet_Kualifikasi_2 = AK2.ID_ATLET) 
-    #     INNER JOIN (SELECT ID_Atlet, MAX(Total_Point) AS Total_Point FROM POINT_HISTORY GROUP BY ID_Atlet) PH ON A.ID = PH.ID_Atlet;
-    #     '''
-    # )]
-    # print(atlet_ganda)
-
     context = {
         'data_ak':atlet_kualifikasi,
         'data_ank':atlet_non_kualifikasi,
         'data_ag':atlet_ganda
     }
 
-    return render (request, 'umpireDaftarAtlet.html', context)
+    return render (request, 'listAtletUmpire.html', context)
 
 def lihat_event(request):
     event = {}
@@ -82,5 +72,3 @@ def hasil_pertandingan(request):
     # return render (request, 'hasilPertandingan.html', {'hasil_pertandingan': hasil_pertandingan})
     return render (request, 'hasilPertandingan.html')
 
-def lihat_atlet(request):
-    return render (request, 'listAtletUmpire.html')
