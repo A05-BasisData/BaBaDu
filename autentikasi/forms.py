@@ -34,7 +34,7 @@ class regist_form_atlet(ModelForm):
 
 class regist_form_pelatih(ModelForm):
     class Meta:
-        model = Atlet
+        model = Pelatih
         fields = ('nama',
                   'email',
                   'negara_asal',
@@ -57,7 +57,7 @@ class regist_form_pelatih(ModelForm):
 
 class regist_form_umpire(ModelForm):
     class Meta:
-        model = Atlet
+        model = Umpire
         fields = ('nama',
                   'email',
                   'negara_asal',)
