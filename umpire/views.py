@@ -7,8 +7,7 @@ def dashboard_umpire(request):
 def umpire_daftar_atlet(request):
     atlet_kualifikasi = {}
     atlet_non_kualifikasi = {}
-    atlet_ganda = {}
-
+    
     atlet_kualifikasi['atlet_kualifikasi'] = [atlet_kualifikasi._asdict() for atlet_kualifikasi in query(
         f'''SELECT M.Nama, A.Tgl_Lahir, A.Negara_Asal, A.Play_Right, A.Height, A.World_Rank, AK.World_Tour_Rank, A.Jenis_Kelamin, PH.Total_Point
         FROM MEMBER M JOIN ATLET A ON M.ID = A.ID JOIN ATLET_KUALIFIKASI AK ON A.ID = AK.ID_Atlet 
@@ -22,9 +21,33 @@ def umpire_daftar_atlet(request):
         '''
     )]
 
+    query_atlet_ganda = query(
+        f'''SELECT AG.ID_Atlet_Ganda, M1.Nama AS Nama_Atlet_Kualifikasi, M2.Nama AS Nama_Atlet_Kualifikasi_2, (PH1.Total_Point + PH2.Total_Point) AS Total_Point FROM Atlet_Ganda AG
+        JOIN MEMBER M1 ON M1.ID = AG.ID_Atlet_Kualifikasi
+        JOIN MEMBER M2 ON M2.ID = AG.ID_Atlet_Kualifikasi_2
+        JOIN (SELECT ID_Atlet, MAX(Total_Point) AS Total_Point FROM POINT_HISTORY GROUP BY ID_Atlet) PH1 ON PH1.ID_Atlet = M1.ID
+        JOIN (SELECT ID_Atlet, MAX(Total_Point) AS Total_Point FROM POINT_HISTORY GROUP BY ID_Atlet) PH2 ON PH2.ID_Atlet = M2.ID;
+        '''
+    )
+
+    list_atlet_ganda = [
+        {
+            'id_atlet_ganda': ag.id_atlet_ganda,
+            'nama_atlet_kualifikasi': ag.nama_atlet_kualifikasi,
+            'nama_atlet_kualifikasi_2': ag.nama_atlet_kualifikasi_2,
+            'total_point': ag.total_point
+        }
+        for ag in query_atlet_ganda
+    ]
+
+    atlet_ganda = {'atlet_ganda':list_atlet_ganda}
+
+    # print(atlet_non_kualifikasi)
+    # print(atlet_ganda)
     # atlet_ganda['atlet_ganda'] = [atlet_ganda._asdict() for atlet_ganda in query(
-    #     f'''SELECT ID_Atlet_Ganda, AK1.Nama, AK2.Nama
-    #     FROM ATLET_GANDA AG JOIN ATLET_KUALIFIKASI AK1, AK2 ON (AG.ID_Atlet_Kualifikasi = AK1.ID_ATLET OR AG.ID_Atlet_Kualifikasi = AK2.ID_ATLET);
+    #     f'''SELECT ID_Atlet_Ganda, AK1.Nama, AK2.Nama, SUM(AK1.Total_Point, AK2.Total_Point)
+    #     FROM ATLET_GANDA AG JOIN ATLET_KUALIFIKASI AK1, AK2 ON (AG.ID_Atlet_Kualifikasi = AK1.ID_ATLET OR AG.ID_Atlet_Kualifikasi_2 = AK2.ID_ATLET) 
+    #     INNER JOIN (SELECT ID_Atlet, MAX(Total_Point) AS Total_Point FROM POINT_HISTORY GROUP BY ID_Atlet) PH ON A.ID = PH.ID_Atlet;
     #     '''
     # )]
     # print(atlet_ganda)
@@ -51,4 +74,10 @@ def pertandingan(request, prtdg):
     return render (request, 'pertandingan.html')
 
 def hasil_pertandingan(request):
+    # hasil_pertandingan = {}
+    # hasil_pertandingan['hasil_pertandingan'] = [hasil_pertandingan._asdict() for hasil_pertandingan in query(
+    #     f'''SELECT ;
+    #     '''
+    # )]
+    # return render (request, 'hasilPertandingan.html', {'hasil_pertandingan': hasil_pertandingan})
     return render (request, 'hasilPertandingan.html')
