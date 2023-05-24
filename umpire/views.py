@@ -19,3 +19,6 @@ def pertandingan(request, prtdg):
 
 def hasil_pertandingan(request):
     return render (request, 'hasilPertandingan.html')
+
+def lihat_atlet(request):
+    return render (request, 'listAtletUmpire.html')

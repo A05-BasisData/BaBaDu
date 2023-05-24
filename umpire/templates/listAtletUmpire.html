@@ -1,0 +1,90 @@
+{% extends 'baseUmpire.html' %}
+{% load static %}
+
+{% block meta %}
+<title>List Atlet</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">Daftar Atlet</h1>
+            <hr>
+            <h3 class="card-title font-h">Atlet Kualifikasi</h3>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Tanggal Lahir</th>
+                    <th scope="col">Negara Asal</th>
+                    <th scope="col">Play Right</th>
+                    <th scope="col">Height</th>
+                    <th scope="col">World Rank</th>
+                    <th scope="col">World Tour Rank</th>
+                    <th scope="col">Jenis Kelamin</th>
+                    <th scope="col">Total Point</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <th class="font-p" scope="col">Nama</th>
+                    <th class="font-p" scope="col">Tanggal Lahir</th>
+                    <th class="font-p" scope="col">Negara Asal</th>
+                    <th class="font-p" scope="col">Play Right</th>
+                    <th class="font-p" scope="col">Height</th>
+                    <th class="font-p" scope="col">World Rank</th>
+                    <th class="font-p" scope="col">World Tour Rank</th>
+                    <th class="font-p" scope="col">Jenis Kelamin</th>
+                    <th class="font-p" scope="col">Total Point</th>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 class="card-title font-h">Atlet Non-Kualifikasi</h3>
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nama</th>
+                      <th scope="col">Tanggal Lahir</th>
+                      <th scope="col">Negara Asal</th>
+                      <th scope="col">Play Right</th>
+                      <th scope="col">Height</th>
+                      <th scope="col">World Rank</th>
+                      <th scope="col">Jenis Kelamin</th>
+                      <th scope="col">Total Point</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <th class="font-p" scope="col">Nama</th>
+                      <th class="font-p" scope="col">Tanggal Lahir</th>
+                      <th class="font-p" scope="col">Negara Asal</th>
+                      <th class="font-p" scope="col">Play Right</th>
+                      <th class="font-p" scope="col">Height</th>
+                      <th class="font-p" scope="col">World Rank</th>
+                      <th class="font-p" scope="col">Jenis Kelamin</th>
+                      <th class="font-p" scope="col">Total Point</th>
+                    </tr>
+                  </tbody>
+                </table>
+                <h3 class="card-title font-h">Atlet Ganda</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID Atlet Ganda</th>
+                        <th scope="col">Nama Atlet 1</th>
+                        <th scope="col">Nama Atlet 2</th>
+                        <th scope="col">Total Point</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <th class="font-p" scope="col">ID Atlet Ganda</th>
+                        <th class="font-p" scope="col">Nama Atlet 1</th>
+                        <th class="font-p" scope="col">Nama Atlet 2</th>
+                        <th class="font-p" scope="col">Total Point</th>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+        </div>
+</div>
+{% endblock content %}
