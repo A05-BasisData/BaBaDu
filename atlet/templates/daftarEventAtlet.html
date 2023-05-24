@@ -42,6 +42,7 @@
                   <tr>
                     <th scope="col">Kategori</th>
                     <th scope="col">Partner</th>
+                    <th scope="col">Kapasitas</th>
                     <th scope="col"> </th>
                   </tr>
                 </thead>
@@ -71,6 +72,9 @@
                           </div>
                     </td>
                     {% endif %}
+                    <td>
+                        {{ prdtg.Kapasitas_x }}/{{ prdtg.Kapasitas }}
+                    </td>
                     <td>
                         <button type="submit" class="btn btn-primary text-white">pilih</button>
                     </td>

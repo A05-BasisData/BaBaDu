@@ -62,15 +62,34 @@ def daftar_event(request, evname, evthn):
         '''
     )
 
+    # for i in len(partai_pendaftar):
+    #     if (partai_pendaftar[i].jenis_partai)[:5] == 'Ganda':
+    #         kapasitas_terisi = kapasitas_terisi +2
+    #     else:
+    #         kapasitas_terisi = kapasitas_terisi +1
+    partai_pendaftar = query(
+        f'''SELECT jenis_partai FROM peserta_mendaftar_event
+            JOIN partai_peserta_kompetisi ppk on peserta_mendaftar_event.nomor_peserta = ppk.nomor_peserta
+            WHERE peserta_mendaftar_event.nama_event = '{evname}' AND peserta_mendaftar_event.tahun = {evthn} AND ppk.nama_event = '{evname}' '''
+    )
+
     pertandingan = []
     for i in range (partai_count[0].count):
         jns_partai = temp_partai[i].jenis_partai
 
         if jenis_kelamin[0].jenis_kelamin == True:
             if jns_partai == 'WS':
-                temp = {'Partai' : 'Tunggal Putri', 'Partner' : '-'}
+                kapasitas_terisi = 0
+                for k in range (len(partai_pendaftar)):
+                    if partai_pendaftar[k].jenis_partai == 'WS':
+                        kapasitas_terisi = kapasitas_terisi + 1
+                temp = {'Partai' : 'Tunggal Putri', 'Partner' : '-', 'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
             if jns_partai == 'WD':
+                kapasitas_terisi = 0
+                for k in range (len(partai_pendaftar)):
+                    if partai_pendaftar[k].jenis_partai == 'WD':
+                        kapasitas_terisi = kapasitas_terisi + 2
                 get_partner = query(
                     f'''SELECT nama FROM member
                         JOIN atlet a on member.id = a.id
@@ -95,10 +114,14 @@ def daftar_event(request, evname, evthn):
                 for j in range (len(get_partner)):
                     partner_list.append(get_partner[j].nama)
 
-                temp = {'Partai' : 'Ganda Putri', 'Partner' : partner_list}
+                temp = {'Partai' : 'Ganda Putri', 'Partner' : partner_list, 'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
             if jns_partai == 'CD':
                 # IF CASE FOR M AND W
+                kapasitas_terisi = 0
+                for k in range (len(partai_pendaftar)):
+                    if partai_pendaftar[k].jenis_partai == 'CD':
+                        kapasitas_terisi = kapasitas_terisi + 2
                 get_partner = query(
                     f'''SELECT nama FROM member
                         JOIN atlet a on member.id = a.id
@@ -123,14 +146,20 @@ def daftar_event(request, evname, evthn):
                 for j in range (len(get_partner)):
                     partner_list.append(get_partner[j].nama)
 
-                temp = {'Partai' : 'Ganda Campuran', 'Partner' : partner_list}
+                temp = {'Partai' : 'Ganda Campuran', 'Partner' : partner_list,'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
 
         else:
             if jns_partai == 'MS':
-                temp = {'Partai' : 'Tunggal Putra', 'Partner' : '-'}
+                for k in range (len(partai_pendaftar)):
+                    if partai_pendaftar[k].jenis_partai == 'MS':
+                        kapasitas_terisi = kapasitas_terisi + 1
+                temp = {'Partai' : 'Tunggal Putra', 'Partner' : '-', 'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
             if jns_partai == 'MD':
+                for k in range (len(partai_pendaftar)):
+                    if partai_pendaftar[k].jenis_partai == 'MD':
+                        kapasitas_terisi = kapasitas_terisi + 2
                 get_partner = query(
                     f'''SELECT nama FROM member
                         JOIN atlet a on member.id = a.id
@@ -155,10 +184,12 @@ def daftar_event(request, evname, evthn):
                 for j in range (len(get_partner)):
                     partner_list.append(get_partner[j].nama)
 
-                temp = {'Partai' : 'Ganda Putra', 'Partner' : partner_list}
+                temp = {'Partai' : 'Ganda Putra', 'Partner' : partner_list, 'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
             if jns_partai == 'CD':
-
+                for k in range (len(partai_pendaftar)):
+                    if partai_pendaftar[k].jenis_partai == 'CD':
+                        kapasitas_terisi = kapasitas_terisi + 2
                 get_partner = query(
                     f'''SELECT nama FROM member
                         JOIN atlet a on member.id = a.id
@@ -184,11 +215,14 @@ def daftar_event(request, evname, evthn):
                 for j in range (len(get_partner)):
                     partner_list.append(get_partner[j].nama)
 
-                temp = {'Partai' : 'Ganda Campuran', 'Partner' : partner_list}
+                temp = {'Partai' : 'Ganda Campuran', 'Partner' : partner_list, 'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
 
     data['detail'] = detail[0]
     data['pertandingan'] = pertandingan
+    data['kapasitas_2'] = ''
+
+    print(pertandingan)
 
     if request.method == 'POST':
         jenis_partai = request.POST.get('jenis_partai')
