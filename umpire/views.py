@@ -81,3 +81,6 @@ def hasil_pertandingan(request):
     # )]
     # return render (request, 'hasilPertandingan.html', {'hasil_pertandingan': hasil_pertandingan})
     return render (request, 'hasilPertandingan.html')
+
+def lihat_atlet(request):
+    return render (request, 'listAtletUmpire.html')

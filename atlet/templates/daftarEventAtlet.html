@@ -42,22 +42,28 @@
                   <tr>
                     <th scope="col">Kategori</th>
                     <th scope="col">Partner</th>
+                    <th scope="col">Kapasitas</th>
                     <th scope="col"> </th>
                   </tr>
                 </thead>
                 <tbody>
-                <form method="POST" action="">
                   {% for prdtg in data.pertandingan %}
                   <tr>
-                    <td>{{ prdtg.Partai }}</td>
+                    <form method="POST" action="">
+                    {% csrf_token %}
+                    <td>
+                        {{ prdtg.Partai }}
+                        <input type="hidden" name="jenis_partai" value= "{{prdtg.Partai}}">
+                    </td>
                     {% if prdtg.Partner == '-' %}
-                    <td>{{ prdtg.Partner }}</td>
+                    <td>
+                        {{ prdtg.Partner }}
+                        <input type="hidden" name="slc_partner" value= "{{prdtg.Partner}}">
+                    </td>
                     {% else %}
                     <td>
                         <div class="form-floating">
-                            <input type="hidden" name="jenis_partai" value= "{{prdtg.Partai}}" >
-
-                            <select class="form-select" id="floatingSelect" aria-label="Partner">
+                            <select name="slc_partner" class="form-select" id="floatingSelect" aria-label="Partner">
                             {% for prtnr in prdtg.Partner %}
                               <option selected>{{ prtnr }}</option>
                             {% endfor %}
@@ -67,31 +73,14 @@
                     </td>
                     {% endif %}
                     <td>
-                        <button type="button" class="btn btn-primary">
-                            <a href="#" class="text-white">Pilih</a>
-                        </button>
+                        {{ prdtg.Kapasitas_x }}/{{ prdtg.Kapasitas }}
                     </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary text-white">pilih</button>
+                    </td>
+                    </form>
                   </tr>
                   {% endfor %}
-                </form>
-                  <!-- <tr>
-                    <td>Ganda Putra</td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle font-p" data--bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15rem;">
-                                Pasangan
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">aaaaa</a>
-                                <a class="dropdown-item" href="#">bbbbb</a>
-                                <a class="dropdown-item" href="#">ccccc</a>
-                        </div>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-primary">
-                            <a href="#" class="text-white">Pilih</a>
-                        </button>
-                  </tr> -->
                 </tbody>
               </table>
         </div>

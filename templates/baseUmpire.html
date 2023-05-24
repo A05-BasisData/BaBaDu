@@ -26,14 +26,31 @@
             <li class="nav-item">
               <a class="nav-link active font-h" aria-current="page" href="{% url 'umpire:dashboard_umpire' %}">Dashboard</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'umpire:umpire_daftar_atlet' %}">Daftar Atlet</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle font-p" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Atlet
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item font-p" href="{% url 'umpire:lihat_atlet' %}">Daftar Atlet</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'umpire:lihat_event' %}">Lihat Event</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle font-p" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Ujian Kualifikasi
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item font-p" href="#">Buat Ujian Kualifikasi</a></li>
+                <li><a class="dropdown-item font-p" href="#">List Ujian Kualifikasi</a></li>
+                <li><a class="dropdown-item font-p" href="#">Riwayat Ujian Kualifikasi</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'umpire:hasil_pertandingan' %}">Hasil Pertandingan</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle font-p" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Event
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item font-p" href="{% url 'umpire:lihat_event' %}">List Partai Kompetensi</a></li>
+              </ul>
             </li>
           </ul>
           <button type="button" class="btn btn-primary">
