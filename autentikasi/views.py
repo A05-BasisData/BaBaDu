@@ -9,10 +9,10 @@ import uuid
 def start_page(request):
     return render (request, 'landingPage.html')
 
-def get_role(email):
-    check_atlet = query(f"""SELECT * FROM MEMBER M JOIN ATLET A ON M.ID = A.ID WHERE M.Email = '{email}'""")
-    check_pelatih = query(f"""SELECT * FROM MEMBER M JOIN PELATIH P ON M.ID = P.ID WHERE M.Email = '{email}'""")
-    check_umpire = query(f"""SELECT * FROM MEMBER M JOIN UMPIRE U ON M.ID = U.ID WHERE M.Email = '{email}'""")
+def get_role(id):
+    check_atlet = query(f"""SELECT * FROM ATLET WHERE id = '{id}'""")
+    check_pelatih = query(f"""SELECT * FROM PELATIH WHERE id = '{id}'""")
+    check_umpire = query(f"""SELECT * FROM UMPIRE WHERE id = '{id}'""")
 
     if check_atlet != []:
         return "atlet"
@@ -44,129 +44,133 @@ def login(request):
     if is_authenticated(request):
         role = get_role(request.session["email"])
         if role == "atlet":
-            return redirect("/dashboard/atlet")
+            return redirect("atlet:dashboard_atlet")
         if role == "pelatih":
-            return redirect("/dashboard/pelatih")
+            return redirect("pelatih:dashboard_pelatih")
         if role == "umpire":
-            return redirect("/dashboard/umpire")
+            return redirect("umpire:dashboard_umpire")
     if request.method == 'POST':
-        nama = request.POST.get('nama')
+        nama = request.POST.get('username')
         email = request.POST.get('email')
-        check_member = query(f"""SELECT * FROM MEMBER WHERE nama='{nama}' and email='{email}'""")
+        check_member = query(f"""SELECT id FROM MEMBER WHERE nama='{nama}' and email='{email}'""")
         flag = is_authenticated(request)
         if check_member != [] and not flag:
             request.session["nama"] = nama
             request.session["email"] = email
-            request.session["role"] = get_role(email)
+            request.session["role"] = get_role(check_member[0].id)
+            request.session["id"] = str(check_member[0].id)
             request.session.set_expiry(500)
             request.session.modified = True
             if next != None and next != "None":
                 return redirect(next)
             else:
-                role = get_role(email)
+                role = get_role(check_member[0].id)
                 if role == "atlet":
-                    return redirect("/dashboard/atlet")
+                    return redirect("atlet:dashboard_atlet")
                 if role == "pelatih":
-                    return redirect("/dashboard/pelatih")
+                    return redirect("pelatih:dashboard_pelatih")
                 if role == "umpire":
-                    return redirect("/dashboard/umpire")   
+                    return redirect("umpire:dashboard_umpire")   
     return render (request, 'login.html')
 
 def regist_atlet(request):
     # form = regist_form_atlet
-
+    myuuid = uuid.uuid1()
     if request.method == "POST":
-        nama = request.POST.get('nama')
+        nama = request.POST.get('username')
         email = request.POST.get('email')
         negara = request.POST.get('negara')
         tanggal_lahir = request.POST.get('tanggal_lahir')
         play = request.POST.get('play')
         tinggi_badan = request.POST.get('tinggi_badan')
-        jenis_kelamin = "Laki-Laki" if request.POST.get('jenis_kelamin') == True else "Perempuan"
-    
-        check_email = query(f"""SELECT * FROM MEMBER WHERE email = {email}""")
+        jenis_kelamin = request.POST.get('jenis_kelamin')
+
+        check_email = query(f"""SELECT * FROM MEMBER WHERE email = '{email}'""")
         if check_email == []:
-            query(f"""INSERT INTO MEMBER VALUES ('{uuid.uuid1()}','{nama}', '{email}')""")
-            query(f"""INSERT INTO ATLET VALUES ('{uuid.uuid1()}','{tanggal_lahir}', '{negara}', '{play}', '{tinggi_badan}', '{None}', '{jenis_kelamin}')""")
+            print(query(f"""INSERT INTO MEMBER VALUES ('{myuuid}','{nama}', '{email}')"""))
+            print(query(f"""INSERT INTO ATLET (id, tgl_lahir, negara_asal, play_right, height, jenis_kelamin)
+                            VALUES ('{myuuid}','{tanggal_lahir}', '{negara}', '{play}', '{tinggi_badan}', '{jenis_kelamin}')"""))
+            print(query(f"""INSERT INTO ATLET_NON_KUALIFIKASI VALUES ('{myuuid}')"""))
             return redirect('/login/')
-        
-        context = {'message': "Email sudah pernah terdaftar"}
-        return render(request, "registerAtlet.html", context)
+        else:
+            context = {'message': "Email sudah pernah terdaftar"}
+            return render(request, "registerAtlet.html", context)
     
     context = {'message': ""}
     return render(request, "registerAtlet.html", context)
-    #     form = regist_form_atlet(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         messages.success(request, 'Anda berhasil mendaftar sebagai atlet!')
-    #         return redirect('autentikasi:login')
 
-    # context = {'form':form}
-    # return render(request, 'registerAtlet.html', context)
 
 def regist_pelatih(request):
     # form = regist_form_pelatih
-
+    myuuid = uuid.uuid1()
     if request.method == "POST":
-        nama = request.POST.get('nama')
+        nama = request.POST.get('username')
         email = request.POST.get('email')
-        negara = request.POST.get('negara')
-        kategori = request.POST.get('kategori')
+        spesialisasi = {
+            "tunggal_putra":request.POST.get('spesialisasi1'),
+            "tunggal_putri":request.POST.get('spesialisasi2'),
+            "ganda_putra":request.POST.get('spesialisasi3'),
+            "ganda_putri":request.POST.get('spesialisasi4'),
+            "ganda_campuran":request.POST.get('spesialisasi5')
+        }
         tanggal_mulai = request.POST.get('tanggal_mulai')
+
+        id_spesialisasi = {
+            "tunggal_putra":str(query("SELECT S.id FROM spesialisasi S WHERE S.spesialisasi = 'Tunggal Putra';")[0].id),
+            "tunggal_putri":str(query("SELECT S.id FROM spesialisasi S WHERE S.spesialisasi = 'Tunggal Putri';")[0].id),
+            "ganda_putra":str(query("SELECT S.id FROM spesialisasi S WHERE S.spesialisasi = 'Ganda Putra';")[0].id),
+            "ganda_putri":str(query("SELECT S.id FROM spesialisasi S WHERE S.spesialisasi = 'Ganda Putri';")[0].id),
+            "ganda_campuran":str(query("SELECT S.id FROM spesialisasi S WHERE S.spesialisasi = 'Ganda Campuran';")[0].id)
+        }
         
-        check_email = query(f"""SELECT * FROM MEMBER WHERE email = {email}""")
+        check_email = query(f"""SELECT * FROM MEMBER WHERE email = '{email}'""")
         if check_email == []:
-            query(f"""INSERT INTO MEMBER VALUES ('{uuid.uuid1()}','{nama}', '{email}')""")
-            query(f"""INSERT INTO PELATIH VALUES ('{uuid.uuid1()}','{tanggal_mulai}')""")
+            print(query(f"""INSERT INTO MEMBER VALUES ('{myuuid}','{nama}', '{email}')"""))
+            print(query(f"""INSERT INTO PELATIH VALUES ('{myuuid}','{tanggal_mulai}')"""))
+            for i in spesialisasi:
+                if spesialisasi[i] is not None:
+                    print(query(f"""INSERT INTO PELATIH_SPESIALISASI VALUES('{myuuid}', '{id_spesialisasi[i]}')"""))
             return redirect('/login/')
-        
-        context = {'message': "Email sudah pernah terdaftar"}
-        return render(request, "registerPelatih.html", context)
+        else:
+            context = {'message': "Email sudah pernah terdaftar"}
+            return render(request, "registerPelatih.html", context)
     
     context = {'message': ""}
     return render(request, "registerPelatih.html", context)
 
-    #     form = regist_form_pelatih(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         messages.success(request, 'Anda berhasil mendaftar sebagai pelatih!')
-    #         return redirect('autentikasi:login')
-    
-    # context = {'form':form}
-    # return render(request, 'registerPelatih.html', context)
-
 def regist_umpire(request):
     # form = regist_form_umpire
-
+    myuuid = uuid.uuid1()
     if request.method == "POST":
-        nama = request.POST.get('nama')
+        nama = request.POST.get('username')
         email = request.POST.get('email')
         negara = request.POST.get('negara')
         
-        check_email = query(f"""SELECT * FROM MEMBER WHERE email = {email}""")
+        check_email = query(f"""SELECT * FROM MEMBER WHERE email = '{email}'""")
         if check_email == []:
-            query(f"""INSERT INTO MEMBER VALUES ('{uuid.uuid1()}','{nama}', '{email}')""")
-            query(f"""INSERT INTO UMPIRE VALUES ('{uuid.uuid1()}','{negara}')""")
+            print(query(f"""INSERT INTO MEMBER VALUES ('{myuuid}','{nama}', '{email}')"""))
+            print(query(f"""INSERT INTO UMPIRE VALUES ('{myuuid}','{negara}')"""))
             return redirect('/login/')
+        else:
+            context = {'message': "Email sudah pernah terdaftar"}
+            return render(request, "registerUmpire.html", context)
         
-        context = {'message': "Email sudah pernah terdaftar"}
-        return render(request, "registerUmpire.html", context)
-    
     context = {'message': ""}
     return render(request, "registerUmpire.html", context)
-    #     form = regist_form_umpire(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         messages.success(request, 'Anda berhasil mendaftar sebagai umpire!')
-    #         return redirect('autentikasi:login')
-    
-    # context = {'form':form}
-    # return render(request, 'registerUmpire.html', context)
 
-# def login(request):
-#     # skip authentication
-#     username = request.POST.get('username')
-#     email = request.POST.get('email')
-#     return render(request, 'login.html')
+
+def logout(request):
+    next = request.GET.get("next")
+
+    if not is_authenticated(request):
+        return redirect("/")
+
+    request.session.flush()
+    request.session.clear_expired()
+
+    if next != None and next != "None":
+        return redirect(next)
+    else:
+        return redirect("/")
 
     

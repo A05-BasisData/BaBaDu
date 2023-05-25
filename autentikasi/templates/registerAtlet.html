@@ -11,36 +11,58 @@
     <div class="card text-center shadow p-3 mb-5 bg-body rounded" style="width: 28rem;">
         <div class="card-body">
             <h1 class="card-title font-h">Registrasi Atlet</h1>
+            <h4 class="card-title font-h">{{ message }}</h4>
             <form method="POST" action="">
                 {% csrf_token %}
                 <div class="col mb-1">
                     <label class="form-label font-p">Nama</label>
-                    {{ form.nama }}
+                    <input type="username" name="username" placeholder="Username" class="form-control" id="username">
                 </div>
                 <div class="col mb-1">
                     <label class="form-label font-p">Email</label>
-                    {{ form.email }}
+                    <input type="email" name="email" placeholder="Email" class="form-control" id="email">
                 </div>
                 <div class="col mb-1">
                     <label class="form-label font-p">Negara</label>
-                    {{ form.negara_asal }}
+                    <input type="text" name="negara" placeholder="Negara" class="form-control" id="negara">
                 </div>
                 <div class="col mb-1">
                     <label class="form-label font-p">Tanggal Lahir</label>
-                    {{ form.tgl_lahir }}
+                    <input type="text" name="tanggal_lahir" placeholder="tanggal_lahir" class="form-control" id="tanggal_lahir">
                 </div>
                 <div class="col">
                     <label class="form-label font-p">Play</label>
-                    {{ form.play_right }}
-                    <hr>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="play" value="true" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Right
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="play" value="false" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2" >
+                          Left
+                        </label>
+                      </div>
                 </div>
                 <div class="col mb-1">
                     <label class="form-label font-p">Tinggi Badan</label>
-                    {{ form.height }}
+                    <input type="text" name="tinggi_badan" placeholder="tinggi_badan" class="form-control" id="tinggi_badan">
                 </div>
                 <div class="col">
                     <label class="form-label font-p">Jenis Kelamin</label>
-                    {{ form.jenis_kelamin }}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="jenis_kelamin" value="true" id="flexRadioDefault3">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                          Putri
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="jenis_kelamin"  value="false"id="flexRadioDefault4" checked>
+                        <label class="form-check-label" for="flexRadioDefault4">
+                          Putra
+                        </label>
+                      </div>
                     <hr>
                 </div>
                 <div class="col mb-1">
