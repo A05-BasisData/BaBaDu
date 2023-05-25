@@ -7,6 +7,7 @@
 {% endblock meta %}
 
 {% block content %}
+
 <div class="container min-vh-100 d-flex align-items-center justify-content-center">
     <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
         <div class="card-body">
@@ -19,47 +20,44 @@
                     <th scope="col">Stadium</th>
                     <th scope="col">Hadiah</th>
                     <th scope="col">Kategori Superseries</th>
-                    <th scope="col">Kategori Spesialisasi</th>
                     <th scope="col">Tanggal Mulai</th>
                     <th scope="col">Tanggal Selesai</th>
-                    <th scope="col">Kapasitas</th>
                     <th scope="col"> </th>
                   </tr>
                 </thead>
                 <tbody>
+                  {% for event in data %}
                   <tr>
-                    <td>Djarum Youth Tournament</td>
-                    <td>Istore Senayan</td>
-                    <td>Rp5000000</td>
-                    <td>S200</td>
-                    <td>Tunggal Putra</td>
-                    <td>12/04/2023</td>
-                    <td>22/04/2023</td>
-                    <td>8/20</td>
+                    <td>{{ event.nama_event }}</td>
+                    <td>{{ event.nama_stadium }}</td>
+                    <td>{{ event.total_hadiah }}</td>
+                    <td>{{ event.kategori_superseries }}</td>
+                    <td>{{ event.tgl_mulai }}</td>
+                    <td>{{ event.tgl_selesai }}</td>
+                    <form method="POST" action="">
+                      {% csrf_token %}
+                      <input type="hidden" name="nama_event" value= "{{event.nama_event}}">
+                      <input type="hidden" name="tahun" value= "{{event.tahun}}">
                     <td>
-                        <button type="button" class="btn btn-primary">
-                            <a href="#" class="text-white">Unenrolled</a>
+                        <button type="submit" class="btn btn-primary">
+                            <p>Unenrolled</p>
                         </button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>Turnamen Bangun Karya</td>
-                    <td>Istora Bung Beto</td>
-                    <td>Rp4000000</td>
-                    <td>S100</td>
-                    <td>Ganda Campuran</td>
-                    <td>27/07/2023</td>
-                    <td>08/08/2023</td>
-                    <td>15/20</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">
-                            <a href="#" class="text-white">Unenrolled</a>
-                        </button>
-                    </td>
-                  </tr>
+                 {% endfor %}
                 </tbody>
               </table>
         </div>
         </div>
 </div>
+
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 {% endblock content %}

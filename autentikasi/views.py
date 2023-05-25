@@ -53,6 +53,8 @@ def login(request):
         nama = request.POST.get('username')
         email = request.POST.get('email')
         check_member = query(f"""SELECT id FROM MEMBER WHERE nama='{nama}' and email='{email}'""")
+        print("ini check member")
+        print(check_member)
         flag = is_authenticated(request)
         if check_member != [] and not flag:
             request.session["nama"] = nama

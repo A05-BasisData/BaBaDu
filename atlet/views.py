@@ -150,8 +150,47 @@ def pilih_event(request, stdname):
         return render (request, 'pilihEventEmpty.html')
 
 def enrolled_event(request):
+    if request.method == "POST":
+        nomor_peserta = query(
+            f'''SELECT nomor_peserta FROM peserta_kompetisi 
+                WHERE id_atlet_kualifikasi = '{request.session["id"]}';
+            '''
+        )
+        print(nomor_peserta[0].nomor_peserta)
+        check_enroll = query(
+            f'''DELETE FROM PESERTA_MENDAFTAR_EVENT 
+                WHERE Nama_Event = '{request.POST["nama_event"]}' AND Nomor_Peserta = '{nomor_peserta[0].nomor_peserta}' AND Tahun = '{request.POST["tahun"]}';
+            ''')
+        print(check_enroll)
+        if isinstance(check_enroll, Exception):
+            trigger_msg = check_enroll.args[0].split("\n")[0]
+            messages.error(request, trigger_msg) #{{trigger_msg}}
+            return redirect("/atlet/enrolled_event") 
+                
+    temp = {}
+    print(request.session["id"])
+    query_get = query(
+        f'''SELECT e.nama_event, e.tahun, e.nama_stadium, e.negara, e.tgl_mulai, e.tgl_selesai, e.kategori_superseries, e.total_hadiah 
+            FROM event AS e, peserta_mendaftar_event AS pme, peserta_kompetisi AS pkp
+            WHERE pkp.id_atlet_kualifikasi = '{request.session['id']}' AND pme.nomor_peserta = pkp.nomor_peserta AND
+            e.nama_event = pme.nama_event AND e.tahun = pme.tahun;
+        '''
+    )
+    print(query_get)
+    temp = [event._asdict() for event in query_get]
 
-    return render (request, 'enrolledEvent.html')
+    data = {}
+    if len(temp) != 0:
+        data = temp
+        print("=====================")
+        print(request.session["id"])
+        print(data)
+        print("=====================")
+        return render (request, 'enrolledEvent.html', {'data':data})
+    else:
+        return render (request, 'pilihEventEmpty.html')
+    
+    
 
 def enrolled_partai_event(request):
             
@@ -169,5 +208,4 @@ def daftar_sponsor(request):
         
     context = {'form':form}
     return render(request, 'daftarSponsor.html', context)
-
-
+        
