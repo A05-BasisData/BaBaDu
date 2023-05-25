@@ -190,12 +190,30 @@ def enrolled_event(request):
     else:
         return render (request, 'pilihEventEmpty.html')
     
-    
-
 def enrolled_partai_event(request):
-            
-    return render (request, 'enrolledPartaiEvent.html')
+    temp = {}
+    print(request.session["id"])
+    query_get = query(
+        f'''SELECT e.nama_event, e.tahun, e.nama_stadium, e.negara, e.tgl_mulai, e.tgl_selesai, e.kategori_superseries, pk.jenis_partai 
+            FROM event AS e, peserta_mendaftar_event AS pme, peserta_kompetisi AS pkp, partai_kompetisi AS pk
+            WHERE pkp.id_atlet_kualifikasi = '{request.session['id']}' AND pme.nomor_peserta = pkp.nomor_peserta AND
+            e.nama_event = pme.nama_event AND e.tahun = pme.tahun;
+        '''
+    )
+    print(query_get)
+    temp = [event._asdict() for event in query_get]
 
+    data = {}
+    if len(temp) != 0:
+        data = temp
+        print("=====================")
+        print(request.session["id"])
+        print(data)
+        print("=====================")
+        return render (request, 'enrolledPartaiEvent.html', {'data':data})
+    else:
+        return render (request, 'pilihEventEmpty.html')
+            
 def daftar_sponsor(request):
     form = regist_sponsor
 
