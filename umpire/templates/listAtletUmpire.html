@@ -28,18 +28,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <th class="font-p" scope="col">Nama</th>
-                    <th class="font-p" scope="col">Tanggal Lahir</th>
-                    <th class="font-p" scope="col">Negara Asal</th>
-                    <th class="font-p" scope="col">Play Right</th>
-                    <th class="font-p" scope="col">Height</th>
-                    <th class="font-p" scope="col">World Rank</th>
-                    <th class="font-p" scope="col">World Tour Rank</th>
-                    <th class="font-p" scope="col">Jenis Kelamin</th>
-                    <th class="font-p" scope="col">Total Point</th>
+                  {% for ak in data_ak.atlet_kualifikasi %}
+                  <tr>
+                    <td class="font-p" scope="col">{{ak.nama}}</td>
+                    <td class="font-p" scope="col">{{ak.tgl_lahir}}</td>
+                    <td class="font-p" scope="col">{{ak.negara_asal}}</td>
+                    <td class="font-p" scope="col">{{ak.play_right}}</td>
+                    <td class="font-p" scope="col">{{ak.height}}</td>
+                    <td class="font-p" scope="col">{{ak.world_rank}}</td>
+                    <td class="font-p" scope="col">{{ak.world_tour_rank}}</td>
+                    <td class="font-p" scope="col">{{ak.jenis_kelamin}}</td>
+                    <td class="font-p" scope="col">{{ak.total_point}}</td>
+                  {% endfor %}
                   </tr>
                 </tbody>
               </table>
+              <p>&nbsp;</p>
               <h3 class="card-title font-h">Atlet Non-Kualifikasi</h3>
               <table class="table">
                   <thead>
@@ -55,17 +59,25 @@
                     </tr>
                   </thead>
                   <tbody>
-                      <th class="font-p" scope="col">Nama</th>
-                      <th class="font-p" scope="col">Tanggal Lahir</th>
-                      <th class="font-p" scope="col">Negara Asal</th>
-                      <th class="font-p" scope="col">Play Right</th>
-                      <th class="font-p" scope="col">Height</th>
-                      <th class="font-p" scope="col">World Rank</th>
-                      <th class="font-p" scope="col">Jenis Kelamin</th>
-                      <th class="font-p" scope="col">Total Point</th>
+                    {% for ank in data_ank.atlet_non_kualifikasi %}
+                    <tr>
+                      <td class="font-p" scope="col">{{ank.nama}}</td>
+                      <td class="font-p" scope="col">{{ank.tgl_lahir}}</td>
+                      <td class="font-p" scope="col">{{ank.negara_asal}}</td>
+                      <td class="font-p" scope="col">{{ank.play_right}}</td>
+                      <td class="font-p" scope="col">{{ank.height}}</td>
+                      {% if ank.world_rank == NULL %}
+                      <td class="font-p" scope="col">-</td>
+                      {% endif %}
+                      <td class="font-p" scope="col">{{ank.jenis_kelamin}}</td>
+                      {% if ank.total_point == NULL %}
+                      <td class="font-p" scope="col">0</td>
+                      {% endif %}
+                    {% endfor %}
                     </tr>
                   </tbody>
                 </table>
+                <p>&nbsp;</p>
                 <h3 class="card-title font-h">Atlet Ganda</h3>
                 <table class="table">
                     <thead>
@@ -77,10 +89,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <th class="font-p" scope="col">ID Atlet Ganda</th>
-                        <th class="font-p" scope="col">Nama Atlet 1</th>
-                        <th class="font-p" scope="col">Nama Atlet 2</th>
-                        <th class="font-p" scope="col">Total Point</th>
+                      {% for ag in data_ag.atlet_ganda %}
+                      <tr>
+                        <td class="font-p" scope="col">{{ag.id_atlet_ganda}}</td>
+                        <td class="font-p" scope="col">{{ag.nama_atlet_kualifikasi}}</td>
+                        <td class="font-p" scope="col">{{ag.nama_atlet_kualifikasi_2}}</td>
+                        <td class="font-p" scope="col">{{ag.total_point}}</td>
+                      {% endfor %}  
                     </tr>
                     </tbody>
                 </table>
