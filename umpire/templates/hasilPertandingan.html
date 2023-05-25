@@ -10,30 +10,31 @@
 <div class="container min-vh-100 d-flex align-items-center justify-content-center mt-4">
     <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
         <div class="card-body">
-            <h1 class="card-title font-h">Hasil Pertandingan</h1>
+            <h2 class="card-title font-h">Hasil Pertandingan</h2>
             <hr>
+            {% for d in detail.detail %}
             <div class="col mb-2">
-              <h4 class="font-h">Djarum Youth Tournament</h4>
-              <hr>
-            </div>
+              <p class="font-p"><strong class="font-p">Nama Event: </strong> {{d.nama_event}}</p>
+          </div>
             <div class="col mb-2">
-                <p class="font-p"><strong class="font-p">Stadium </strong> Istora Senayan</p>
+                <p class="font-p"><strong class="font-p">Stadium: </strong> {{d.nama_stadium}}</p>
             </div> 
             <div class="col mb-2">
-                <p class="font-p"><strong class="font-p">Hadiah </strong> Rp5000000</p>
+                <p class="font-p"><strong class="font-p">Hadiah: </strong> Rp{{d.total_hadiah}}</p>
             </div>
             <div class="col mb-2">
-                <p class="font-p"><strong class="font-p">Kategori Superseries </strong> S200</p>
+                <p class="font-p"><strong class="font-p">Kategori Superseries: </strong> {{d.kategori_superseries}}</p>
             </div>
             <div class="col mb-2">
-                <p class="font-p"><strong class="font-p">Tanggal Mulai </strong> 12/04/2023</p>
+                <p class="font-p"><strong class="font-p">Tanggal Mulai: </strong> {{d.tgl_mulai}}</p>
             </div>
             <div class="col mb-2">
-                <p class="font-p"><strong class="font-p">Tanggal Selesai </strong> 22/04/2023</p>
+                <p class="font-p"><strong class="font-p">Tanggal Selesai: </strong> {{d.tgl_selesai}}</p>
             </div>
             <div class="col mb-2">
-                <p class="font-p"><strong class="font-p">Kapasitas </strong> 20/20</p>
+                <p class="font-p"><strong class="font-p">Kapasitas: </strong> {{d.kapasitas}}</p>
             </div>
+            {% endfor %}
             <table class="table">
                 <thead>
                   <tr>
@@ -44,34 +45,34 @@
                 <tbody>
                   <tr>
                     <td>Juara 1</td>
-                    <td>A</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td>Juara 2</td>
-                    <td>G</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td>Juara 3</td>
-                    <td>D</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td>Semifinal</td>
-                    <td>E</td>
+                    <td></td>
                   </tr>
                   <tr>
-                    <td>Semifinal</td>
+                    <td>Perempat Final</td>
                     <td>
                         <div class="row">
-                            <p>C</p>
+                            <p></p>
                         </div>
                         <div class="row">
-                            <p>F</p>
+                            <p></p>
                         </div>
                         <div class="row">
-                            <p>B</p>
+                            <p></p>
                         </div>
                         <div class="row">
-                            <p>H</p>
+                            <p></p>
                         </div>
                     </td>
                   </tr>

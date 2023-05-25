@@ -40,15 +40,15 @@
                     <td>{{ prtdg.kapasitas_pendaftar }}/{{ prtdg.kapasitas }}</td>
                     {% if prtdg.kapasitas_pendaftar == prtdg.kapasitas %}
                     <td>
-                        <button type="button" class="btn btn-primary">
-                            <a onclick="location.href='/umpire/pertandingan/{{prtdg.nama_event}}/'"class="text-white">Mulai</a>
-                        </button>
-                    </td>
-                    <td>
                       <button type="button" class="btn btn-primary">
-                          <a onclick="location.href='/umpire/hasil_pertandingan/'"class="text-white">Hasil</a>
+                          <a onclick="location.href='/umpire/pertandingan/{{prtdg.nama_event}}/'"class="text-white">Mulai</a>
                       </button>
                   </td>
+                  <td>
+                    <button type="button" class="btn btn-primary">
+                        <a onclick="location.href='/umpire/hasil_pertandingan/{{prtdg.nama_event}}/{{prtdg.tahun}}/'"class="text-white">Hasil</a>
+                    </button>
+                </td>
                     {% endif %}
                     {% endfor %}
                   </tr>

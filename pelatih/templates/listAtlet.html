@@ -21,15 +21,12 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for a in data_atlet.atlet_dilatih %}
                   <tr>
-                    <td>Pratikno Subagyo</td>
-                    <td>Prasuk@gmail.com</td>
-                    <td>38</td>
-                  </tr>
-                  <tr>
-                    <td>Ujang Karujang</td>
-                    <td>UjaJang@yahoo.com</td>
-                    <td>76</td>
+                    <td class="font-p" scope="col">{{a.nama}}</td>
+                    <td class="font-p" scope="col">{{a.email}}</td>
+                    <td class="font-p" scope="col">{{a.world_rank}}</td>
+                  {% endfor %}
                   </tr>
                 </tbody>
               </table>

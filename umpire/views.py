@@ -127,12 +127,22 @@ def lihat_event(request):
 def pertandingan(request, prtdg):
     return render (request, 'pertandingan.html')
 
-def hasil_pertandingan(request):
-    # hasil_pertandingan = {}
+def hasil_pertandingan(request, nama_event, tahun):
+    detail = {}
+
+    detail['detail'] = [detail._asdict() for detail in query(
+        f'''SELECT nama_event, total_hadiah, tgl_mulai, tgl_selesai, 
+            kategori_superseries, kapasitas, nama_stadium FROM event
+            JOIN stadium s on s.nama = event.nama_stadium
+            WHERE nama_event = '{nama_event}' AND tahun = {tahun};
+        '''
+    )]
+    # print(detail)
+    hasil_pertandingan = {}
     # hasil_pertandingan['hasil_pertandingan'] = [hasil_pertandingan._asdict() for hasil_pertandingan in query(
     #     f'''SELECT ;
     #     '''
     # )]
     # return render (request, 'hasilPertandingan.html', {'hasil_pertandingan': hasil_pertandingan})
-    return render (request, 'hasilPertandingan.html')
+    return render (request, 'hasilPertandingan.html', {'detail':detail})
 
