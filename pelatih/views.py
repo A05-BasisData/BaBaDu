@@ -38,6 +38,12 @@ def dashboard_pelatih(request):
     return render (request, 'dashboardPelatih.html', context)
 
 def daftar_atlet(request):
+    idp = query(
+        f'''SELECT pelatih.id FROM pelatih
+            JOIN member m on m.id = pelatih.id
+            WHERE m.nama = '{request.session["nama"]}' AND m.email = '{request.session["email"]}';
+        '''
+    )
     if request.method == 'GET':
         atlet = {}
         atlet['atlet'] = [atlet._asdict() for atlet in query(
@@ -46,7 +52,7 @@ def daftar_atlet(request):
         return render (request, 'daftarAtlet.html', {'data_atlet':atlet})
     
     elif request.method == 'POST':
-        id_pelatih = '4e3f8ae6-1004-48cc-afb7-e6df8340cadd'
+        id_pelatih = idp[0].id
         nama_atlet = request.POST.get('nama_atlet')
 
         # print(nama_atlet)
@@ -64,13 +70,17 @@ def daftar_atlet(request):
             '''
         ))
 
-        # query(f'''INSERT INTO ATLET_PELATIH VALUES('{id_pelatih}', '{id_atlet}') ''')
         return redirect('pelatih:list_atlet')
         
 
 def list_atlet(request):
-    # id_pelatih = request.user.member.id
-    id_pelatih = '4e3f8ae6-1004-48cc-afb7-e6df8340cadd'
+    idp = query(
+        f'''SELECT pelatih.id FROM pelatih
+            JOIN member m on m.id = pelatih.id
+            WHERE m.nama = '{request.session["nama"]}' AND m.email = '{request.session["email"]}';
+        '''
+    )
+    id_pelatih = idp[0].id
     atlet_dilatih = {}
     atlet_dilatih['atlet_dilatih'] = [atlet_dilatih._asdict() for atlet_dilatih in query(
         f'''SELECT M.nama, M.email, A.world_rank FROM ATLET_PELATIH AP JOIN ATLET A ON AP.id_atlet = A.id 
