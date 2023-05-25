@@ -150,7 +150,7 @@ def pilih_event(request, stdname):
         return render (request, 'pilihEventEmpty.html')
 
 def enrolled_event(request):
-            if request.method == "POST":
+    if request.method == "POST":
         nomor_peserta = query(
             f'''SELECT nomor_peserta FROM peserta_kompetisi 
                 WHERE id_atlet_kualifikasi = '{request.session["id"]}';
