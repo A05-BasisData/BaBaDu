@@ -11,19 +11,20 @@
     <div class="card text-center shadow p-3 mb-5 bg-body rounded" style="width: 28rem;">
         <div class="card-body">
             <h1 class="card-title font-h">Registrasi Umpire</h1>
+            <h4 class="card-title font-h">{{ message }}</h4>
             <form method="POST" action="">
                 {% csrf_token %}
                 <div class="col mb-1">
                     <label class="form-label font-p">Nama</label>
-                    {{ form.nama }}
+                    <input type="username" name="username" placeholder="Username" class="form-control" id="username">
                 </div>
                 <div class="col mb-1">
                     <label class="form-label font-p">Email</label>
-                    {{ form.email }}
+                    <input type="email" name="email" placeholder="Email" class="form-control" id="email">
                 </div>
                 <div class="col mb-1">
                     <label class="form-label font-p">Negara</label>
-                    {{ form.negara_asal }}
+                    <input type="text" name="negara" placeholder="Negara" class="form-control" id="negara">
                 </div>
                 <div class="col mt-3">
                     <input class="btn btn-primary font-p" type="submit">

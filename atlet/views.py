@@ -1,14 +1,85 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
 from atlet.forms import *
+from autentikasi.views import *
 from utility.query import query
 import uuid
 
-# id atlet yang login 51b05840-3114-457d-9f32-fda45c5adff5
-
 def dashboard_atlet(request):
-    return render (request, 'dashboardAtlet.html')
+    if not is_authenticated(request):
+        return redirect('/login')
+    
+    if request.session["role"] != "atlet":
+        return HttpResponse("401 Unauthorized: Unauthorized session role Atlet")
+    
+    atlet_data = query(
+        f'''SELECT m.nama, negara_asal, m.email, tgl_lahir, play_right, height, jenis_kelamin FROM atlet
+            JOIN member m on m.id = atlet.id
+            WHERE m.nama = '{request.session["nama"]}' AND m.email = '{request.session["email"]}';
+        '''
+    )
+
+    nama_lengkap = atlet_data[0].nama
+    negara = atlet_data[0].negara_asal
+    email = atlet_data[0].email
+    tanggal_lahir = atlet_data[0].tgl_lahir
+    play_right = atlet_data[0].play_right
+    if play_right == True: play_right = 'Right Hand'
+    else: play_right = 'Left Hand'
+
+    tinggi_badan = atlet_data[0].height
+    jenis_kelamin = atlet_data[0].jenis_kelamin
+    if jenis_kelamin == True: jenis_kelamin = 'Putri'
+    else: jenis_kelamin = 'Putra'
+
+    pelatih = ''
+    pelatih_temp = query(
+        f'''SELECT nama FROM member
+            JOIN pelatih p on member.id = p.id
+            JOIN atlet_pelatih ap on p.id = ap.id_pelatih
+            WHERE ap.id_atlet = '{request.session["id"]}'
+        '''
+    )
+    if len(pelatih_temp) == 0: pelatih = "-"
+    else: pelatih = pelatih_temp[0].nama
+
+    status = ''
+    world_rank = '-'
+    total_point = 0 
+    atlet_kualifikasi_temp = query(
+        f'''SELECT * FROM atlet_kualifikasi
+            WHERE id_atlet = '{request.session["id"]}'
+        '''
+    )
+    if len(atlet_kualifikasi_temp) == 0: 
+        status = "Not Qualified"
+    else:
+        temp_point = query(
+            f'''SELECT sum(total_point) AS sum_point FROM point_history
+                WHERE id_atlet = '{request.session["id"]}'
+                GROUP BY  id_atlet;
+            '''
+        )
+        status = "Qualified"
+        world_rank = atlet_kualifikasi_temp[0].world_rank
+        total_point = temp_point[0].sum_point
+
+    context = {
+        "Nama_Lengkap" : nama_lengkap,
+        "Negara" : negara,
+        "Email" : email,
+        "Tanggal_Lahir" : tanggal_lahir,
+        "Play" : play_right,
+        "Tinggi_Badan" : tinggi_badan,
+        "Jenis_Kelamin" : jenis_kelamin,
+        "Pelatih" : pelatih,
+        "Status" : status,
+        "World_Rank" : world_rank,
+        "Total_Poin" : total_point
+    }
+    return render (request, 'dashboardAtlet.html', context)
 
 def tes_kualifikasi(request):
     return render (request, 'tesKualifikasi.html')
@@ -17,6 +88,12 @@ def pertanyaan_kualifikasi(request):
     return render (request, 'pertanyaanKualifikasi.html')
 
 def pilih_stadium(request):
+    if not is_authenticated(request):
+        return redirect('/login')
+    
+    if request.session["role"] != "atlet":
+        return HttpResponse("401 Unauthorized: Unauthorized session role Pelanggan")
+
     data = {}
     data['stadium'] = [std._asdict() for std in query(
         f'''SELECT * FROM STADIUM
@@ -31,6 +108,13 @@ def pilih_stadium(request):
     return render (request, 'pilihStadium.html', {'data':data})
 
 def daftar_event(request, evname, evthn):
+
+    if not is_authenticated(request):
+        return redirect('/login')
+    
+    if request.session["role"] != "atlet":
+        return HttpResponse("401 Unauthorized: Unauthorized session role Pelanggan")
+    
     data = {}
     detail = {}
     temp_partai = {}
@@ -58,7 +142,7 @@ def daftar_event(request, evname, evthn):
     # Contoh
     jenis_kelamin = query(
         f'''SELECT jenis_kelamin FROM ATLET
-        WHERE id = '51b05840-3114-457d-9f32-fda45c5adff5'
+        WHERE id = '{request.session["id"]}'
         '''
     )
 
@@ -99,20 +183,21 @@ def daftar_event(request, evname, evthn):
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '{request.session["id"]}'
                             UNION 
                             SELECT atlet_ganda.id_atlet_kualifikasi_2 from atlet_ganda
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi = '{request.session["id"]}'
                             )
                         AND jenis_kelamin = TRUE;
                     '''
                 )
                 partner_list = []
-                for j in range (len(get_partner)):
-                    partner_list.append(get_partner[j].nama)
+                if (len(get_partner)) != 0:
+                    for j in range (len(get_partner)):
+                        partner_list.append(get_partner[j].nama)
 
                 temp = {'Partai' : 'Ganda Putri', 'Partner' : partner_list, 'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
@@ -131,32 +216,35 @@ def daftar_event(request, evname, evthn):
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '{request.session["id"]}'
                             UNION 
                             SELECT atlet_ganda.id_atlet_kualifikasi_2 from atlet_ganda
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi = '{request.session["id"]}'
                             )
                         AND jenis_kelamin = FALSE;
                     '''
                 )
                 partner_list = []
-                for j in range (len(get_partner)):
-                    partner_list.append(get_partner[j].nama)
+                if (len(get_partner)) != 0:
+                    for j in range (len(get_partner)):
+                        partner_list.append(get_partner[j].nama)
 
                 temp = {'Partai' : 'Ganda Campuran', 'Partner' : partner_list,'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
 
         else:
             if jns_partai == 'MS':
+                kapasitas_terisi = 0
                 for k in range (len(partai_pendaftar)):
                     if partai_pendaftar[k].jenis_partai == 'MS':
                         kapasitas_terisi = kapasitas_terisi + 1
                 temp = {'Partai' : 'Tunggal Putra', 'Partner' : '-', 'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
             if jns_partai == 'MD':
+                kapasitas_terisi = 0
                 for k in range (len(partai_pendaftar)):
                     if partai_pendaftar[k].jenis_partai == 'MD':
                         kapasitas_terisi = kapasitas_terisi + 2
@@ -169,24 +257,26 @@ def daftar_event(request, evname, evthn):
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '{request.session["id"]}'
                             UNION 
                             SELECT atlet_ganda.id_atlet_kualifikasi_2 from atlet_ganda
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta 
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'AND atlet_ganda.id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}'AND atlet_ganda.id_atlet_kualifikasi = '{request.session["id"]}'
                             )
                         AND jenis_kelamin = FALSE;
                     '''
                 )
                 partner_list = []
-                for j in range (len(get_partner)):
-                    partner_list.append(get_partner[j].nama)
+                if (len(get_partner)) != 0:
+                    for j in range (len(get_partner)):
+                        partner_list.append(get_partner[j].nama)
 
                 temp = {'Partai' : 'Ganda Putra', 'Partner' : partner_list, 'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
             if jns_partai == 'CD':
+                kapasitas_terisi = 0
                 for k in range (len(partai_pendaftar)):
                     if partai_pendaftar[k].jenis_partai == 'CD':
                         kapasitas_terisi = kapasitas_terisi + 2
@@ -199,21 +289,21 @@ def daftar_event(request, evname, evthn):
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5'
-                            JOIN 
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi_2 = '{request.session["id"]}'
                             UNION 
                             SELECT atlet_ganda.id_atlet_kualifikasi_2 from atlet_ganda
                             JOIN atlet_kualifikasi k on atlet_ganda.id_atlet_kualifikasi = k.id_atlet
                             JOIN peserta_kompetisi pk on atlet_ganda.id_atlet_ganda = pk.id_atlet_ganda
                             JOIN partai_peserta_kompetisi ppk on pk.nomor_peserta = ppk.nomor_peserta
-                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5'
+                            WHERE ppk.nama_event = '{evname}' AND ppk.tahun_event = '{evthn}' AND atlet_ganda.id_atlet_kualifikasi = '{request.session["id"]}'
                             )
                         AND jenis_kelamin = TRUE;
                     '''
                 )
                 partner_list = []
-                for j in range (len(get_partner)):
-                    partner_list.append(get_partner[j].nama)
+                if (len(get_partner)) != 0:
+                    for j in range (len(get_partner)):
+                        partner_list.append(get_partner[j].nama)
 
                 temp = {'Partai' : 'Ganda Campuran', 'Partner' : partner_list, 'Kapasitas' : detail[0].kapasitas, 'Kapasitas_x' : kapasitas_terisi}
                 pertandingan.append(temp)
@@ -246,29 +336,29 @@ def daftar_event(request, evname, evthn):
             curr_id_psrt = uuid.uuid1()
             avail_ganda_check = query(
                 f'''SELECT id_atlet_kualifikasi, id_atlet_kualifikasi_2 FROM atlet_ganda
-                    WHERE (id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5' AND id_atlet_kualifikasi_2 = '{partner_id[0].id}')
-                    OR (id_atlet_kualifikasi = '{partner_id[0].id}' AND id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5')
+                    WHERE (id_atlet_kualifikasi = '{request.session["id"]}' AND id_atlet_kualifikasi_2 = '{partner_id[0].id}')
+                    OR (id_atlet_kualifikasi = '{partner_id[0].id}' AND id_atlet_kualifikasi_2 = '{request.session["id"]}')
                 '''
                 )
             if len(avail_ganda_check) == 0:
                 print(query(
                     f'''INSERT INTO atlet_ganda 
-                    VALUES('{curr_id_psrt}', '51b05840-3114-457d-9f32-fda45c5adff5', '{partner_id[0].id}')
+                    VALUES('{curr_id_psrt}', '{request.session["id"]}', '{partner_id[0].id}')
                     '''
                 ))
 
             avail_daftar_ganda_check = query(
                 f'''SELECT nomor_peserta FROM peserta_kompetisi
                     JOIN atlet_ganda ag on peserta_kompetisi.id_atlet_ganda = ag.id_atlet_ganda
-                    WHERE (ag.id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5' AND ag.id_atlet_kualifikasi_2 = '{partner_id[0].id}')
-                    OR (ag.id_atlet_kualifikasi = '{partner_id[0].id}' AND ag.id_atlet_kualifikasi_2 = '51b05840-3114-457d-9f32-fda45c5adff5')
+                    WHERE (ag.id_atlet_kualifikasi = '{request.session["id"]}' AND ag.id_atlet_kualifikasi_2 = '{partner_id[0].id}')
+                    OR (ag.id_atlet_kualifikasi = '{partner_id[0].id}' AND ag.id_atlet_kualifikasi_2 = '{request.session["id"]}')
                 '''
                 )
 
             if len(avail_daftar_ganda_check) == 0:
                 get_wrld_rnk = (query(f'''SELECT world_rank, world_tour_rank FROM atlet_kualifikasi 
-                                         WHERE id_atlet = '51b05840-3114-457d-9f32-fda45c5adff5' '''))
-                curr_no_psrt = get_no_psrt[0].nomor_peserta + 1
+                                         WHERE id_atlet = '{request.session["id"]}' '''))
+                curr_no_psrt = get_no_psrt[0].nomor_peserta + 2
                 curr_wrld_rnk = get_wrld_rnk[0].world_rank
                 curr_wrld_tr_rnk = get_wrld_rnk[0].world_tour_rank
                 print(query(
@@ -281,24 +371,24 @@ def daftar_event(request, evname, evthn):
         else:
             avail_daftar_check = query(
                 f'''SELECT id_atlet_kualifikasi FROM peserta_kompetisi
-                    WHERE id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5';
+                    WHERE id_atlet_kualifikasi = '{request.session["id"]}';
                 '''
             )
             if len(avail_daftar_check) == 0:
                 get_wrld_rnk = (query(f'''SELECT world_rank, world_tour_rank FROM atlet_kualifikasi 
-                                        WHERE id_atlet = '51b05840-3114-457d-9f32-fda45c5adff5' '''))
-                curr_no_psrt = get_no_psrt[0].nomor_peserta + 1
+                                        WHERE id_atlet = '{request.session["id"]}' '''))
+                curr_no_psrt = get_no_psrt[0].nomor_peserta + 2
                 curr_wrld_rnk = get_wrld_rnk[0].world_rank
                 curr_wrld_tr_rnk = get_wrld_rnk[0].world_tour_rank
                 print(query(
                     f'''INSERT INTO peserta_kompetisi (nomor_peserta, id_atlet_kualifikasi, world_rank, world_tour_rank)
-                        VALUES ({curr_no_psrt}, '51b05840-3114-457d-9f32-fda45c5adff5', {curr_wrld_rnk}, {curr_wrld_tr_rnk})
+                        VALUES ({curr_no_psrt}, '{request.session["id"]}', {curr_wrld_rnk}, {curr_wrld_tr_rnk})
                     '''
                 ))
             else:
                 temp_1 = query(
                     f'''SELECT nomor_peserta FROM peserta_kompetisi
-                        WHERE id_atlet_kualifikasi = '51b05840-3114-457d-9f32-fda45c5adff5';
+                        WHERE id_atlet_kualifikasi = '{request.session["id"]}';
                     '''
                 )
                 curr_no_psrt = temp_1[0].nomor_peserta
@@ -332,6 +422,12 @@ def daftar_event(request, evname, evthn):
     return render (request, 'daftarEventAtlet.html', {'data':data})
 
 def pilih_event(request, stdname):
+    if not is_authenticated(request):
+        return redirect('/login')
+    
+    if request.session["role"] != "atlet":
+        return HttpResponse("401 Unauthorized: Unauthorized session role Pelanggan")
+
     temp = {}
     cnt = query(
         f'''SELECT COUNT(*) FROM EVENT
