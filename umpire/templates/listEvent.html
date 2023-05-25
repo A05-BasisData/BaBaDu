@@ -23,7 +23,7 @@
                     <th scope="col">Tanggal Mulai</th>
                     <th scope="col">Tanggal Selesai</th>
                     <th scope="col">Kapasitas</th>
-                    <th scope="col"> </th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -36,13 +36,19 @@
                     <td>{{ prtdg.kategori_superseries }}</td>
                     <td>{{ prtdg.tgl_mulai }}</td>
                     <td>{{ prtdg.tgl_selesai }}</td>
-                    <td>{{ prtdg.kapasitas }}</td>
+                    <td>{{ prtdg.occupied }}/{{ prtdg.kapasitas }}</td>
+                    {% if prtdg.occupied == prtdg.kapasitas %}
                     <td>
                         <button type="button" class="btn btn-primary">
                             <a onclick="location.href='/umpire/pertandingan/{{prtdg.nama_event}}/'"class="text-white">Mulai</a>
                         </button>
+                        <p>&nbsp;</p>
+                        <button type="button" class="btn btn-primary">
+                          <a onclick="location.href='/umpire/hasil_pertandingan/{{prtdg.nama_event}}/{{prtdg.tahun}}/'"class="text-white">Hasil Pertandingan</a>
+                      </button>
                     </td>
-                    {% endfor %}
+                    {% endif %}
+                  {% endfor %}
                   </tr>
                 </tbody>
               </table>
