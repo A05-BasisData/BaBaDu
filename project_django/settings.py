@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = ['https://babadua05.up.railway.app/login/']
+
 # Application definition
 
 INSTALLED_APPS = [
