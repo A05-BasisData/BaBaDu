@@ -1,0 +1,62 @@
+{% extends 'baseAtletKualifikasi.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Enrolled Partai Event</title> 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card text-center shadow p-3 mb-5 bg-body rounded ">
+        <div class="card-body">
+            <h1 class="card-title font-h">Event yang diikuti</h1>
+            <hr>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nama Event</th>
+                    <th scope="col">Tahun</th>
+                    <th scope="col">Stadium</th>
+                    <th scope="col">Jenis Partai</th>
+                    <th scope="col">Kategori Superseries</th>
+                    <th scope="col">Tanggal Mulai</th>
+                    <th scope="col">Tanggal Selesai</th>
+                    <th scope="col"> </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Indonesia Open</td>
+                    <td>2023</td>
+                    <td>GBK</td>
+                    <td>MD</td>
+                    <td>S1000</td>
+                    <td>02/04/2023</td>
+                    <td>12/04/2023</td>
+                    <!-- <td>
+                        <button type="button" class="btn btn-primary">
+                            <a href="#" class="text-white">Unenrolled</a>
+                        </button>
+                    </td> -->
+                  </tr>
+                  <tr>
+                    <td>Indonesia Master</td>
+                    <td>2023</td>
+                    <td>Senayan</td>
+                    <td>MS</td>
+                    <td>S750</td>
+                    <td>10/09/2023</td>
+                    <td>20/09/2023</td>
+                    <!-- <td>
+                        <button type="button" class="btn btn-primary">
+                            <a href="#" class="text-white">Unenrolled</a>
+                        </button>
+                    </td> -->
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        </div>
+</div>
+{% endblock content %}
