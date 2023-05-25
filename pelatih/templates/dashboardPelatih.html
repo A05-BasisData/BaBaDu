@@ -13,20 +13,22 @@
             <h1 class="card-title font-h">Profile</h1>
             <form method="POST" action="">
                 <div class="col mb-2">
-                    <h4 class="font-h">Jose Mourinho</h4>
+                    <h4 class="font-h"> {{ Nama_Lengkap }} </h4>
                     <hr>
                 </div>
                 <div class="col mb-2">
-                    <p class="font-p"><strong class="font-p">Negara </strong> Portugal</p>
+                    <p class="font-p"><strong class="font-p">Email </strong> {{ Nama_Lengkap }}</p>
                 </div>
                 <div class="col mb-2">
-                    <p class="font-p"><strong class="font-p">Email </strong> JoseMou@gmail.com</p>
+                    <strong class="font-p">Spesialisai Kategori </strong>
                 </div>
                 <div class="col mb-2">
-                    <p class="font-p"><strong class="font-p">Spesialisai Kategori </strong> Tunggal Putra</p>
+                    {% for ctx in Spesialisasi %}
+                    <p class="font-p"> {{ ctx.spesialisasi }} </p>
+                    {% endfor %}
                 </div>
                 <div class="col mb-2">
-                    <p class="font-p"><strong class="font-p">Tanggal Mulai </strong> 19/05/2014</p>
+                    <p class="font-p"><strong class="font-p">Tanggal Mulai </strong> {{ Tanggal_Mulai }}</p>
                 </div>
             </form>
         </div>
