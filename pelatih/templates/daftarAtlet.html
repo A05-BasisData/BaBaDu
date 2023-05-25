@@ -16,20 +16,32 @@
                 <p class="font-p">Atlet yang mau ditambahkan: </p>
             </div>
             <div class="col">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-bs-toggle font-p" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                    Atlet
-                </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">aaaaa</a>
-                      <a class="dropdown-item" href="#">bbbbb</a>
-                      <a class="dropdown-item" href="#">ccccc</a>
-                    </div>
-                  </div>
-            </div>
-            <button type="button" class="btn btn-outline-primary mt-3">
-                <a href="{% url 'pelatih:list_atlet' %}">Submit</a>
-            </button>
+                <form method="POST">
+                    {% csrf_token %}
+                    <select name="nama_atlet" class="form-select" aria-label="atlet">
+                        <!-- <option selected>Nama Atlet</option> -->
+                        {% for a in data_atlet.atlet %}
+                        <option selected>{{a.nama}}</option>
+                        <!-- <option value="2">{{a.nama}}</option>
+                        <option value="3">{{a.nama}}</option> -->
+                        {% endfor %}
+                    </select>
+                    <!-- <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-bs-toggle font-p" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        Atlet
+                    </button>
+                        <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">aaaaa</a>
+                        <a class="dropdown-item" href="#">bbbbb</a>
+                        <a class="dropdown-item" href="#">ccccc</a>
+                        </div>
+                    </div> -->
+                </div>
+                    <button type="submit" class="btn btn-outline-primary mt-3">
+                        Submit
+                        <!-- <a href="{% url 'pelatih:list_atlet' %}">Submit</a> -->
+                    </button>
+                </form>
             
         </div>
         </div>
