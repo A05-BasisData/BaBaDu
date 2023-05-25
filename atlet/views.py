@@ -414,9 +414,7 @@ def daftar_event(request, evname, evthn):
         ))
         print(trigger_4)
         if isinstance(trigger_4, Exception):
-            trigger_msg = trigger_4.args[0].split("\n")[0]
-            messages.error(request, trigger_msg)
-            return redirect("/atlet/daftar_event")
+            return redirect("/atlet/")
         return redirect("/atlet/enrolled_event")
 
     return render (request, 'daftarEventAtlet.html', {'data':data})

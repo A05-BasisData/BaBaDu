@@ -88,9 +88,7 @@ def regist_atlet(request):
 
         check_email = query(f"""SELECT * FROM MEMBER WHERE email = '{email}'""")
         if isinstance(check_email, Exception):
-            trigger_msg = check_email.args[0].split("\n")[0]
-            messages.error(request, trigger_msg)
-            return redirect("/register/atlet")
+            return redirect("/login")
         if check_email == []:
             print(query(f"""INSERT INTO MEMBER VALUES ('{myuuid}','{nama}', '{email}')"""))
             print(query(f"""INSERT INTO ATLET (id, tgl_lahir, negara_asal, play_right, height, jenis_kelamin)
@@ -130,9 +128,7 @@ def regist_pelatih(request):
         
         check_email = query(f"""SELECT * FROM MEMBER WHERE email = '{email}'""")
         if isinstance(check_email, Exception):
-            trigger_msg = check_email.args[0].split("\n")[0]
-            messages.error(request, trigger_msg)
-            return redirect("/register/pelatih")
+            return redirect("/login")
         if check_email == []:
             print(query(f"""INSERT INTO MEMBER VALUES ('{myuuid}','{nama}', '{email}')"""))
             print(query(f"""INSERT INTO PELATIH VALUES ('{myuuid}','{tanggal_mulai}')"""))
@@ -157,9 +153,7 @@ def regist_umpire(request):
         
         check_email = query(f"""SELECT * FROM MEMBER WHERE email = '{email}'""")
         if isinstance(check_email, Exception):
-            trigger_msg = check_email.args[0].split("\n")[0]
-            messages.error(request, trigger_msg)
-            return redirect("/register/umpire")
+            return redirect("/login")
         if check_email == []:
             print(query(f"""INSERT INTO MEMBER VALUES ('{myuuid}','{nama}', '{email}')"""))
             print(query(f"""INSERT INTO UMPIRE VALUES ('{myuuid}','{negara}')"""))
