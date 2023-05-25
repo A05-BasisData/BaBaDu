@@ -153,6 +153,10 @@ def enrolled_event(request):
 
     return render (request, 'enrolledEvent.html')
 
+def enrolled_partai_event(request):
+    
+    return render (request, 'enrolledPartaiEvent.html')
+
 def daftar_sponsor(request):
     form = regist_sponsor
 
@@ -166,4 +170,7 @@ def daftar_sponsor(request):
     context = {'form':form}
     return render(request, 'daftarSponsor.html', context)
 
+def unenroll_event(request):
+    
+    return render (request, 'enrolledEvent.html')
 

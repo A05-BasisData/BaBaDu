@@ -12,5 +12,6 @@ urlpatterns = [
     path('pilih_stadium/', pilih_stadium, name = 'pilih_stadium'),
     path('pilih_event/<str:stdname>/', pilih_event, name = 'pilih_event'),
     path('enrolled_event/', enrolled_event, name = 'enrolled_event'),
+    path('enrolled_partai_event/', enrolled_partai_event, name = 'enrolled_partai_event'),
     path('daftar_sponsor/', daftar_sponsor, name = 'daftar_sponsor')
 ]

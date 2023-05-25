@@ -29,16 +29,25 @@
             <li class="nav-item">
               <a class="nav-link font-h" href="{% url 'atlet:tes_kualifikasi' %}">Tes Kualifikasi</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'atlet:pilih_stadium' %}">Daftar Event</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link font-h" href="{% url 'atlet:enrolled_event' %}">Enrolled Event</a>
+
+            <li class = "dropdown"><Event>
+              <ul class = "dropdown-item">
+                <li class="dropdown-item">
+                  <a class="nav-link font-h" href="{% url 'atlet:pilih_stadium' %}">Daftar Event</a>
+                </li>
+                <li class="dropdown-item">
+                  <a class="nav-link font-h" href="{% url 'atlet:enrolled_event' %}">Enrolled Event</a>
+                </li>
+                <li class="dropdown-item">
+                  <a class="nav-link font-h" href="{% url 'atlet:enrolled_partai_event' %}">Enrolled Partai Event</a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link font-h" href="{% url 'atlet:daftar_sponsor' %}">Daftar Sponsor</a>
             </li>
           </ul>
+
           <button type="button" class="btn btn-primary">
               <a href="{% url 'autentikasi:start_page' %} " class="text-white">Log out</a>
           </button>
