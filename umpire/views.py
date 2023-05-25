@@ -78,14 +78,10 @@ def lihat_atlet(request):
 
 def lihat_event(request):
     event = {}
-    # Masih salah perlu sesuai dengan partai kompetisi
     event['event'] = [event._asdict() for event in query(
-        f'''SELECT pk.nama_event, pk.tahun_event, e.nama_stadium, pk.jenis_partai, e.kategori_superseries, e.tgl_mulai, e.tgl_selesai, count(pme.nomor_peserta) as occupied, s.kapasitas FROM partai_kompetisi pk
-        JOIN event e on pk.nama_event = e.nama_event and pk.tahun_event = e.tahun
-        LEFT OUTER JOIN peserta_mendaftar_event pme on pme.nama_event = e.nama_event and pme.tahun = e.tahun
-        JOIN stadium s on e.nama_stadium = s.nama
-        GROUP BY pk.nama_event, pk.tahun_event, e.nama_stadium, pk.jenis_partai, e.kategori_superseries, e.tgl_mulai, e.tgl_selesai, s.kapasitas
-        ORDER BY e.tgl_mulai;
+        f'''SELECT partai_kompetisi.nama_event, tahun, nama_stadium, jenis_partai, kategori_superseries, tgl_mulai, tgl_selesai, kapasitas FROM partai_kompetisi
+        JOIN event e on partai_kompetisi.nama_event = e.nama_event and partai_kompetisi.tahun_event = e.tahun
+        JOIN stadium s on e.nama_stadium = s.nama;
         '''
     )]
     
@@ -127,31 +123,6 @@ def lihat_event(request):
             event['event'][i]['kapasitas_pendaftar'] = kapasitas_terisi
         
     return render (request, 'listEvent.html', {'data':event})
-
-# def lihat_event(request):
-#     event = {}
-#     event['event'] = [event._asdict() for event in query(
-#         f'''SELECT partai_kompetisi.nama_event, tahun, nama_stadium, jenis_partai, kategori_superseries, tgl_mulai, tgl_selesai, kapasitas FROM partai_kompetisi
-#         JOIN event e on partai_kompetisi.nama_event = e.nama_event and partai_kompetisi.tahun_event = e.tahun
-#         JOIN stadium s on e.nama_stadium = s.nama;
-#         '''
-#     )]
-#     return render (request, 'listEvent.html', {'data':event})
-
-# def lihat_event(request):
-#     temp = {}
-#     temp = [event._asdict() for event in query(
-#         f'''SELECT * FROM
-#         '''
-#     )]
-#     event = {}
-#     event['event'] = [event._asdict() for event in query(
-#         f'''SELECT partai_kompetisi.nama_event, tahun, nama_stadium, jenis_partai, kategori_superseries, tgl_mulai, tgl_selesai, kapasitas FROM partai_kompetisi
-#         JOIN event e on partai_kompetisi.nama_event = e.nama_event and partai_kompetisi.tahun_event = e.tahun
-#         JOIN stadium s on e.nama_stadium = s.nama;
-#         '''
-#     )]
-#     return render (request, 'listEvent.html', {'data':event})
 
 def pertandingan(request, prtdg):
     return render (request, 'pertandingan.html')
